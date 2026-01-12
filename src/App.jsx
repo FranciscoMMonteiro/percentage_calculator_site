@@ -3,7 +3,8 @@ import { translations } from './translations';
 
 function App() {
   const [language, setLanguage] = useState(() => {
-    return localStorage.getItem('percentage_calculator_language') || 'en';
+    const saved = localStorage.getItem('percentage_calculator_language');
+    return translations[saved] ? saved : 'en';
   });
   const t = translations[language];
 
@@ -134,22 +135,28 @@ function App() {
   return (
     <div className="app-container">
       <div className="top-controls">
-        <div className="language-switcher">
-          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-            <option value="en">English</option>
-            <option value="pt">Português (BR)</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="it">Italiano</option>
-          </select>
+        <div className="control-group">
+          <label className="control-label">{t.language_label}</label>
+          <div className="language-switcher">
+            <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+              <option value="en">English</option>
+              <option value="pt">Português (BR)</option>
+              <option value="es">Español</option>
+              <option value="fr">Français</option>
+              <option value="de">Deutsch</option>
+              <option value="it">Italiano</option>
+            </select>
+          </div>
         </div>
 
-        <div className="separator-switcher">
-          <select value={decimalSeparator} onChange={(e) => setDecimalSeparator(e.target.value)}>
-            <option value=".">{t.separator_dot}</option>
-            <option value=",">{t.separator_comma}</option>
-          </select>
+        <div className="control-group">
+          <label className="control-label">{t.separator_label}</label>
+          <div className="separator-switcher">
+            <select value={decimalSeparator} onChange={(e) => setDecimalSeparator(e.target.value)}>
+              <option value=".">{t.separator_dot}</option>
+              <option value=",">{t.separator_comma}</option>
+            </select>
+          </div>
         </div>
       </div>
 

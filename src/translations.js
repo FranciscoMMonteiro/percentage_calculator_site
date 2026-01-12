@@ -8,7 +8,12 @@ export const translations = {
         base_placeholder: "e.g. 100",
         percentage_placeholder: "e.g. 20",
         result_placeholder: "e.g. 20",
-        clear_button: "Clear All"
+        clear_button: "Clear All",
+        decimal_separator: "Decimal Separator",
+        separator_dot: "Dot (.)",
+        separator_comma: "Comma (,)",
+        language_label: "Language",
+        separator_label: "Decimal Separator"
     },
     pt: {
         title: "Calculadora de Porcentagem",
@@ -19,7 +24,12 @@ export const translations = {
         base_placeholder: "ex: 100",
         percentage_placeholder: "ex: 20",
         result_placeholder: "ex: 20",
-        clear_button: "Limpar Tudo"
+        clear_button: "Limpar Tudo",
+        decimal_separator: "Separador Decimal",
+        separator_dot: "Ponto (.)",
+        separator_comma: "Vírgula (,)",
+        language_label: "Idioma",
+        separator_label: "Separador Decimal"
     },
     es: {
         title: "Calculadora de Porcentajes",
@@ -30,7 +40,12 @@ export const translations = {
         base_placeholder: "ej: 100",
         percentage_placeholder: "ej: 20",
         result_placeholder: "ej: 20",
-        clear_button: "Limpar Todo"
+        clear_button: "Limpar Todo",
+        decimal_separator: "Separador Decimal",
+        separator_dot: "Punto (.)",
+        separator_comma: "Coma (,)",
+        language_label: "Idioma",
+        separator_label: "Separador Decimal"
     },
     fr: {
         title: "Calculateur de Pourcentage",
@@ -41,7 +56,12 @@ export const translations = {
         base_placeholder: "ex: 100",
         percentage_placeholder: "ex: 20",
         result_placeholder: "ex: 20",
-        clear_button: "Tout Effacer"
+        clear_button: "Tout Effacer",
+        decimal_separator: "Séparateur Décimal",
+        separator_dot: "Point (.)",
+        separator_comma: "Virgule (,)",
+        language_label: "Langue",
+        separator_label: "Séparateur Décimal"
     },
     de: {
         title: "Prozentrechner",
@@ -52,7 +72,12 @@ export const translations = {
         base_placeholder: "z.B. 100",
         percentage_placeholder: "z.B. 20",
         result_placeholder: "z.B. 20",
-        clear_button: "Alles Löschen"
+        clear_button: "Alles Löschen",
+        decimal_separator: "Dezimaltrennzeichen",
+        separator_dot: "Punkt (.)",
+        separator_comma: "Komma (,)",
+        language_label: "Sprache",
+        separator_label: "Dezimaltrennzeichen"
     },
     it: {
         title: "Calcolatrice Percentuale",
@@ -63,6 +88,11 @@ export const translations = {
         base_placeholder: "es: 100",
         percentage_placeholder: "es: 20",
         result_placeholder: "es: 20",
-        clear_button: "Cancella Tutto"
+        clear_button: "Cancella Tutto",
+        decimal_separator: "Separatore Decimale",
+        separator_dot: "Punto (.)",
+        separator_comma: "Virgola (,)",
+        language_label: "Lingua",
+        separator_label: "Separatore Decimale"
     }
 };
