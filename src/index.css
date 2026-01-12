@@ -27,14 +27,46 @@ body {
   justify-content: center;
   align-items: center;
   overflow-x: hidden;
+  flex-direction: column;
 }
 
 .app-container {
   width: 100%;
   padding: 20px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
   perspective: 1000px;
+}
+
+.language-switcher {
+  margin-bottom: 20px;
+  z-index: 10;
+}
+
+.language-switcher select {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.language-switcher select:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--accent-color);
+}
+
+.language-switcher select option {
+  background: #1a1a2e;
+  color: var(--text-primary);
 }
 
 .calculator-card {
@@ -52,9 +84,17 @@ body {
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 h1 {
@@ -126,7 +166,7 @@ input.active {
   .calculator-card {
     padding: 24px;
   }
-  
+
   h1 {
     font-size: 2rem;
   }

@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
+import { translations } from './translations';
 
 function App() {
+  const [language, setLanguage] = useState('en');
+  const t = translations[language];
+
   const [values, setValues] = useState({
     base: '',
     percentage: '',
@@ -31,7 +35,7 @@ function App() {
     if (lastEdited.length < 2) return;
 
     const [first, second] = lastEdited;
-    
+
     // Determine the missing field (the one NOT in the last 2 edited)
     const fields = ['base', 'percentage', 'result'];
     const missingField = fields.find(f => !lastEdited.includes(f));
@@ -47,7 +51,7 @@ function App() {
 
     // Logic:
     // Base * (Percentage / 100) = Result
-    
+
     if (missingField === 'result') {
       // We have Base and Percentage
       // Result = Base * (Percentage / 100)
@@ -90,42 +94,53 @@ function App() {
 
   return (
     <div className="app-container">
+      <div className="language-switcher">
+        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+          <option value="en">English</option>
+          <option value="pt">Português (BR)</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+          <option value="it">Italiano</option>
+        </select>
+      </div>
+
       <div className="calculator-card">
-        <h1>Percentage Calculator</h1>
-        <p className="subtitle">Fill any two fields to calculate the third.</p>
-        
+        <h1>{t.title}</h1>
+        <p className="subtitle">{t.subtitle}</p>
+
         <div className="input-group">
-          <label htmlFor="base">Base Number</label>
+          <label htmlFor="base">{t.base_label}</label>
           <input
             type="text"
             id="base"
             value={values.base}
             onChange={(e) => handleInputChange('base', e.target.value)}
-            placeholder="e.g. 100"
+            placeholder={t.base_placeholder}
             className={lastEdited.includes('base') ? 'active' : 'calculated'}
           />
         </div>
 
         <div className="input-group">
-          <label htmlFor="percentage">Percentage (%)</label>
+          <label htmlFor="percentage">{t.percentage_label}</label>
           <input
             type="text"
             id="percentage"
             value={values.percentage}
             onChange={(e) => handleInputChange('percentage', e.target.value)}
-            placeholder="e.g. 20"
+            placeholder={t.percentage_placeholder}
             className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
           />
         </div>
 
         <div className="input-group">
-          <label htmlFor="result">Result Number</label>
+          <label htmlFor="result">{t.result_label}</label>
           <input
             type="text"
             id="result"
             value={values.result}
             onChange={(e) => handleInputChange('result', e.target.value)}
-            placeholder="e.g. 20"
+            placeholder={t.result_placeholder}
             className={lastEdited.includes('result') ? 'active' : 'calculated'}
           />
         </div>
