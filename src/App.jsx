@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Analytics } from "@vercel/analytics/react";
 import { translations } from './translations';
 
 function App() {
@@ -206,6 +207,7 @@ function App() {
           {t.clear_button}
         </button>
       </div>
+      <Analytics />
     </div>
   );
 }
