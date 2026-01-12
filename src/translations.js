@@ -7,7 +7,8 @@ export const translations = {
         result_label: "Result Number",
         base_placeholder: "e.g. 100",
         percentage_placeholder: "e.g. 20",
-        result_placeholder: "e.g. 20"
+        result_placeholder: "e.g. 20",
+        clear_button: "Clear All"
     },
     pt: {
         title: "Calculadora de Porcentagem",
@@ -17,7 +18,8 @@ export const translations = {
         result_label: "Resultado",
         base_placeholder: "ex: 100",
         percentage_placeholder: "ex: 20",
-        result_placeholder: "ex: 20"
+        result_placeholder: "ex: 20",
+        clear_button: "Limpar Tudo"
     },
     es: {
         title: "Calculadora de Porcentajes",
@@ -27,7 +29,8 @@ export const translations = {
         result_label: "Resultado",
         base_placeholder: "ej: 100",
         percentage_placeholder: "ej: 20",
-        result_placeholder: "ej: 20"
+        result_placeholder: "ej: 20",
+        clear_button: "Limpar Todo"
     },
     fr: {
         title: "Calculateur de Pourcentage",
@@ -37,7 +40,8 @@ export const translations = {
         result_label: "Résultat",
         base_placeholder: "ex: 100",
         percentage_placeholder: "ex: 20",
-        result_placeholder: "ex: 20"
+        result_placeholder: "ex: 20",
+        clear_button: "Tout Effacer"
     },
     de: {
         title: "Prozentrechner",
@@ -47,7 +51,8 @@ export const translations = {
         result_label: "Ergebnis",
         base_placeholder: "z.B. 100",
         percentage_placeholder: "z.B. 20",
-        result_placeholder: "z.B. 20"
+        result_placeholder: "z.B. 20",
+        clear_button: "Alles Löschen"
     },
     it: {
         title: "Calcolatrice Percentuale",
@@ -57,6 +62,7 @@ export const translations = {
         result_label: "Risultato",
         base_placeholder: "es: 100",
         percentage_placeholder: "es: 20",
-        result_placeholder: "es: 20"
+        result_placeholder: "es: 20",
+        clear_button: "Cancella Tutto"
     }
 };

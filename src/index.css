@@ -156,3 +156,29 @@ input.active {
     font-size: 2rem;
   }
 }
+
+.clear-button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 10px;
+  background: rgba(233, 69, 96, 0.2);
+  border: 1px solid var(--accent-color);
+  border-radius: 12px;
+  color: var(--accent-color);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.clear-button:hover {
+  background: var(--accent-color);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+}
+
+.clear-button:active {
+  transform: translateY(0);
+}

@@ -98,6 +98,15 @@ function App() {
 
   }, [values.base, values.percentage, values.result, lastEdited]);
 
+  const handleClear = () => {
+    setValues({
+      base: '',
+      percentage: '',
+      result: ''
+    });
+    setLastEdited([]);
+  };
+
   return (
     <div className="app-container">
       <div className="language-switcher">
@@ -150,6 +159,10 @@ function App() {
             className={lastEdited.includes('result') ? 'active' : 'calculated'}
           />
         </div>
+
+        <button className="clear-button" onClick={handleClear}>
+          {t.clear_button}
+        </button>
       </div>
     </div>
   );
