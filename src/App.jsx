@@ -7,9 +7,17 @@ function App() {
   });
   const t = translations[language];
 
+  const [decimalSeparator, setDecimalSeparator] = useState(() => {
+    return localStorage.getItem('percentage_calculator_separator') || '.';
+  });
+
   useEffect(() => {
     localStorage.setItem('percentage_calculator_language', language);
   }, [language]);
+
+  useEffect(() => {
+    localStorage.setItem('percentage_calculator_separator', decimalSeparator);
+  }, [decimalSeparator]);
 
   const [values, setValues] = useState({
     base: '',
@@ -21,8 +29,9 @@ function App() {
   const [lastEdited, setLastEdited] = useState([]);
 
   const handleInputChange = (field, value) => {
-    // Allow only numbers and decimals
-    if (!/^\d*\.?\d*$/.test(value)) return;
+    // Allow numbers and the selected separator
+    const regex = decimalSeparator === '.' ? /^\d*\.?\d*$/ : /^\d*,?\d*$/;
+    if (!regex.test(value)) return;
 
     setValues(prev => ({ ...prev, [field]: value }));
 
@@ -34,6 +43,21 @@ function App() {
       // Keep only the last 2 edited fields
       return newOrder.slice(-2);
     });
+  };
+
+  const parseValue = (val) => {
+    if (!val) return NaN;
+    if (decimalSeparator === ',') {
+      return parseFloat(val.replace(',', '.'));
+    }
+    return parseFloat(val);
+  };
+
+  const formatValue = (val) => {
+    if (decimalSeparator === ',') {
+      return val.toString().replace('.', ',');
+    }
+    return val.toString();
   };
 
   useEffect(() => {
@@ -109,15 +133,24 @@ function App() {
 
   return (
     <div className="app-container">
-      <div className="language-switcher">
-        <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-          <option value="en">English</option>
-          <option value="pt">Português (BR)</option>
-          <option value="es">Español</option>
-          <option value="fr">Français</option>
-          <option value="de">Deutsch</option>
-          <option value="it">Italiano</option>
-        </select>
+      <div className="top-controls">
+        <div className="language-switcher">
+          <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+            <option value="en">English</option>
+            <option value="pt">Português (BR)</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+          </select>
+        </div>
+
+        <div className="separator-switcher">
+          <select value={decimalSeparator} onChange={(e) => setDecimalSeparator(e.target.value)}>
+            <option value=".">{t.separator_dot}</option>
+            <option value=",">{t.separator_comma}</option>
+          </select>
+        </div>
       </div>
 
       <div className="calculator-card">
