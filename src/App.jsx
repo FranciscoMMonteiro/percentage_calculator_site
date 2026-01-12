@@ -73,8 +73,8 @@ function App() {
 
     if (!missingField) return; // Should not happen if logic is correct
 
-    const val1 = parseFloat(values[lastEdited[0]]);
-    const val2 = parseFloat(values[lastEdited[1]]);
+    const val1 = parseValue(values[lastEdited[0]]);
+    const val2 = parseValue(values[lastEdited[1]]);
 
     if (isNaN(val1) || isNaN(val2)) return;
 
@@ -86,24 +86,24 @@ function App() {
     if (missingField === 'result') {
       // We have Base and Percentage
       // Result = Base * (Percentage / 100)
-      const base = lastEdited.includes('base') ? parseFloat(values.base) : 0;
-      const pct = lastEdited.includes('percentage') ? parseFloat(values.percentage) : 0;
+      const base = lastEdited.includes('base') ? parseValue(values.base) : 0;
+      const pct = lastEdited.includes('percentage') ? parseValue(values.percentage) : 0;
       if (!isNaN(base) && !isNaN(pct)) {
         calculatedValue = (base * (pct / 100)).toFixed(2);
       }
     } else if (missingField === 'base') {
       // We have Result and Percentage
       // Base = Result / (Percentage / 100)
-      const res = lastEdited.includes('result') ? parseFloat(values.result) : 0;
-      const pct = lastEdited.includes('percentage') ? parseFloat(values.percentage) : 0;
+      const res = lastEdited.includes('result') ? parseValue(values.result) : 0;
+      const pct = lastEdited.includes('percentage') ? parseValue(values.percentage) : 0;
       if (!isNaN(res) && !isNaN(pct) && pct !== 0) {
         calculatedValue = (res / (pct / 100)).toFixed(2);
       }
     } else if (missingField === 'percentage') {
       // We have Base and Result
       // Percentage = (Result / Base) * 100
-      const base = lastEdited.includes('base') ? parseFloat(values.base) : 0;
-      const res = lastEdited.includes('result') ? parseFloat(values.result) : 0;
+      const base = lastEdited.includes('base') ? parseValue(values.base) : 0;
+      const res = lastEdited.includes('result') ? parseValue(values.result) : 0;
       if (!isNaN(base) && !isNaN(res) && base !== 0) {
         calculatedValue = ((res / base) * 100).toFixed(2);
       }
@@ -114,14 +114,16 @@ function App() {
       calculatedValue = calculatedValue.slice(0, -3);
     }
 
+    const formattedCalculatedValue = formatValue(calculatedValue);
+
     // Update the missing field without triggering a re-calculation loop
     // We do this by checking if the value is different
     setValues(prev => {
-      if (prev[missingField] === calculatedValue) return prev;
-      return { ...prev, [missingField]: calculatedValue };
+      if (prev[missingField] === formattedCalculatedValue) return prev;
+      return { ...prev, [missingField]: formattedCalculatedValue };
     });
 
-  }, [values.base, values.percentage, values.result, lastEdited]);
+  }, [values.base, values.percentage, values.result, lastEdited, decimalSeparator]);
 
   const handleClear = () => {
     setValues({
