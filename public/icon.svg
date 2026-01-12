@@ -5,8 +5,8 @@
       <stop offset="100%" style="stop-color:#16213e;stop-opacity:1" />
     </linearGradient>
     <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#e94560;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#ff6b6b;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#4361ee;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4cc9f0;stop-opacity:1" />
     </linearGradient>
   </defs>
   <circle cx="256" cy="256" r="240" fill="url(#grad1)" stroke="url(#grad2)" stroke-width="20"/>
