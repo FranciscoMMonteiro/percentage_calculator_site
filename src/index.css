@@ -80,21 +80,6 @@ body {
   max-width: 480px;
   box-shadow: var(--shadow-lg);
   transform-style: preserve-3d;
-  animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0px);
-  }
-
-  50% {
-    transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0px);
-  }
 }
 
 h1 {

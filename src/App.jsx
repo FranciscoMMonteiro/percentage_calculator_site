@@ -2,8 +2,14 @@ import { useState, useEffect } from 'react';
 import { translations } from './translations';
 
 function App() {
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(() => {
+    return localStorage.getItem('percentage_calculator_language') || 'en';
+  });
   const t = translations[language];
+
+  useEffect(() => {
+    localStorage.setItem('percentage_calculator_language', language);
+  }, [language]);
 
   const [values, setValues] = useState({
     base: '',
