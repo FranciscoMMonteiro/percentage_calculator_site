@@ -9,6 +9,6 @@
       <stop offset="100%" style="stop-color:#4cc9f0;stop-opacity:1" />
     </linearGradient>
   </defs>
-  <circle cx="256" cy="256" r="240" fill="url(#grad1)" stroke="url(#grad2)" stroke-width="20"/>
+  <circle cx="256" cy="256" r="240" fill="#ffffff" stroke="url(#grad2)" stroke-width="20"/>
   <text x="50%" y="50%" text-anchor="middle" dy=".35em" font-family="Arial, sans-serif" font-weight="bold" font-size="300" fill="url(#grad2)">%</text>
 </svg>
