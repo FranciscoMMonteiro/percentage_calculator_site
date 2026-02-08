@@ -135,77 +135,169 @@ function App() {
     setLastEdited([]);
   };
 
+  const handleCalculate = () => {
+    const hasBase = values.base !== '';
+    const hasPercentage = values.percentage !== '';
+    const hasResult = values.result !== '';
+
+    if (hasBase && hasPercentage) {
+      setLastEdited(['base', 'percentage']);
+      return;
+    }
+
+    if (hasBase && hasResult) {
+      setLastEdited(['base', 'result']);
+      return;
+    }
+
+    if (hasPercentage && hasResult) {
+      setLastEdited(['percentage', 'result']);
+    }
+  };
+
+  const displayResult = values.result || '—';
+  const displayPercentage = values.percentage || '—';
+  const displayBase = values.base || '—';
+  const displayFormula =
+    values.base && values.percentage && values.result
+      ? `${displayPercentage}% of ${displayBase} = ${displayResult}`
+      : 'Enter any two fields to calculate the third.';
+
   return (
     <div className="app-container">
-      <div className="top-controls">
-        <div className="control-group">
-          <label className="control-label">{t.language_label}</label>
-          <div className="language-switcher">
-            <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-              <option value="en">English</option>
-              <option value="pt">Português (BR)</option>
-              <option value="es">Español</option>
-              <option value="fr">Français</option>
-              <option value="de">Deutsch</option>
-              <option value="it">Italiano</option>
-            </select>
+      <header className="topbar">
+        <div className="brand">
+          <span className="brand-dot" />
+          {t.title}
+        </div>
+        <div className="top-controls">
+          <div className="control-group">
+            <label className="control-label">{t.language_label}</label>
+            <div className="language-switcher">
+              <select value={language} onChange={(e) => setLanguage(e.target.value)}>
+                <option value="en">English</option>
+                <option value="pt">Português (BR)</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="it">Italiano</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="control-group">
+            <label className="control-label">{t.separator_label}</label>
+            <div className="separator-switcher">
+              <select value={decimalSeparator} onChange={(e) => setDecimalSeparator(e.target.value)}>
+                <option value=".">{t.separator_dot}</option>
+                <option value=",">{t.separator_comma}</option>
+              </select>
+            </div>
           </div>
         </div>
+      </header>
 
-        <div className="control-group">
-          <label className="control-label">{t.separator_label}</label>
-          <div className="separator-switcher">
-            <select value={decimalSeparator} onChange={(e) => setDecimalSeparator(e.target.value)}>
-              <option value=".">{t.separator_dot}</option>
-              <option value=",">{t.separator_comma}</option>
-            </select>
+      <div className="page">
+        <section className="hero">
+          <div className="hero-header">
+            <h1>{t.title}</h1>
+            <p className="subtitle">{t.subtitle}</p>
+            <div className="hero-badges">
+              <span>No signup</span>
+              <span>Fast</span>
+              <span>Mobile-friendly</span>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="calculator-card">
-        <h1>{t.title}</h1>
-        <p className="subtitle">{t.subtitle}</p>
+          <div className="hero-section">
+            <h2>Example Calculations</h2>
+            <div className="pill-grid">
+              <button className="pill">Tip 10% on $45</button>
+              <button className="pill">25% off $199</button>
+              <button className="pill">From 80 to 100, what %?</button>
+            </div>
+            <button className="link-button">See more examples →</button>
+          </div>
 
-        <div className="input-group">
-          <label htmlFor="base">{t.base_label}</label>
-          <input
-            type="text"
-            id="base"
-            value={values.base}
-            onChange={(e) => handleInputChange('base', e.target.value)}
-            placeholder={t.base_placeholder}
-            className={lastEdited.includes('base') ? 'active' : 'calculated'}
-          />
-        </div>
+          <div className="hero-section">
+            <h2>Related Calculators</h2>
+            <div className="pill-grid">
+              <button className="pill">Discount Calculator</button>
+              <button className="pill">Tax / VAT Calculator</button>
+              <button className="pill">Tip Calculator</button>
+              <button className="pill">Fraction to Percent</button>
+              <button className="pill">Percentage Change</button>
+            </div>
+          </div>
+        </section>
 
-        <div className="input-group">
-          <label htmlFor="percentage">{t.percentage_label}</label>
-          <input
-            type="text"
-            id="percentage"
-            value={values.percentage}
-            onChange={(e) => handleInputChange('percentage', e.target.value)}
-            placeholder={t.percentage_placeholder}
-            className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
-          />
-        </div>
+        <section className="calculator-panel">
+          <div className="calculator-card">
+            <div className="tab-row">
+              <button className="tab active">X% of Y</button>
+              <button className="tab">What % is X of Y</button>
+              <button className="tab">Increase / Decrease</button>
+              <button className="tab">Percentage Change</button>
+            </div>
 
-        <div className="input-group">
-          <label htmlFor="result">{t.result_label}</label>
-          <input
-            type="text"
-            id="result"
-            value={values.result}
-            onChange={(e) => handleInputChange('result', e.target.value)}
-            placeholder={t.result_placeholder}
-            className={lastEdited.includes('result') ? 'active' : 'calculated'}
-          />
-        </div>
+            <div className="form">
+              <div className="input-group">
+                <label htmlFor="percentage">{t.percentage_label}</label>
+                <input
+                  type="text"
+                  id="percentage"
+                  value={values.percentage}
+                  onChange={(e) => handleInputChange('percentage', e.target.value)}
+                  placeholder={t.percentage_placeholder}
+                  className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
+                />
+              </div>
 
-        <button className="clear-button" onClick={handleClear}>
-          {t.clear_button}
-        </button>
+              <div className="input-group">
+                <label htmlFor="base">{t.base_label}</label>
+                <input
+                  type="text"
+                  id="base"
+                  value={values.base}
+                  onChange={(e) => handleInputChange('base', e.target.value)}
+                  placeholder={t.base_placeholder}
+                  className={lastEdited.includes('base') ? 'active' : 'calculated'}
+                />
+              </div>
+
+              <div className="input-group">
+                <label htmlFor="result">{t.result_label}</label>
+                <input
+                  type="text"
+                  id="result"
+                  value={values.result}
+                  onChange={(e) => handleInputChange('result', e.target.value)}
+                  placeholder={t.result_placeholder}
+                  className={lastEdited.includes('result') ? 'active' : 'calculated'}
+                />
+              </div>
+
+              <div className="button-row">
+                <button className="primary-button" onClick={handleCalculate}>
+                  Calculate
+                </button>
+                <button className="secondary-button" onClick={handleClear}>
+                  {t.clear_button}
+                </button>
+              </div>
+            </div>
+
+            <div className="result-panel">
+              <div className="result-title">Result: <strong>{displayResult}</strong></div>
+              <div className="result-formula">{displayFormula}</div>
+              <div className="result-actions">
+                <button className="ghost-button">Copy Result</button>
+                <button className="ghost-button">Reset</button>
+                <button className="ghost-button">Share</button>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
       <Analytics />
     </div>
