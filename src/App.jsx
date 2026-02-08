@@ -168,46 +168,75 @@ function App() {
             </div>
 
             <div className="form">
-              {mode !== 'what_percent' && (
-                <div className="input-group">
-                  <label htmlFor="percentage">{t.percentage_label}</label>
-                  <input
-                    type="text"
-                    id="percentage"
-                    value={values.percentage}
-                    onChange={(e) => handleInputChange('percentage', e.target.value)}
-                    placeholder={t.percentage_placeholder}
-                    className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
-                  />
-                </div>
+              {mode === 'increase_decrease' ? (
+                <>
+                  <div className="input-group">
+                    <label htmlFor="base">{t.base_label}</label>
+                    <input
+                      type="text"
+                      id="base"
+                      value={values.base}
+                      onChange={(e) => handleInputChange('base', e.target.value)}
+                      placeholder={t.base_placeholder}
+                      className={lastEdited.includes('base') ? 'active' : 'calculated'}
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="percentage">Percentage (%) Increase/Decrease</label>
+                    <input
+                      type="text"
+                      id="percentage"
+                      value={values.percentage}
+                      onChange={(e) => handleInputChange('percentage', e.target.value)}
+                      placeholder={t.percentage_placeholder}
+                      className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {mode !== 'what_percent' && (
+                    <div className="input-group">
+                      <label htmlFor="percentage">{t.percentage_label}</label>
+                      <input
+                        type="text"
+                        id="percentage"
+                        value={values.percentage}
+                        onChange={(e) => handleInputChange('percentage', e.target.value)}
+                        placeholder={t.percentage_placeholder}
+                        className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
+                      />
+                    </div>
+                  )}
+
+                  <div className="input-group">
+                    <label htmlFor="base">{mode === 'what_percent' ? 'What percentage (%) is' : t.base_label}</label>
+                    <input
+                      type="text"
+                      id="base"
+                      value={values.base}
+                      onChange={(e) => handleInputChange('base', e.target.value)}
+                      placeholder={t.base_placeholder}
+                      className={lastEdited.includes('base') ? 'active' : 'calculated'}
+                    />
+                  </div>
+
+                  {mode !== 'percent_of' && (
+                    <div className="input-group">
+                      <label htmlFor="result">{mode === 'what_percent' ? 'out of' : t.result_label}</label>
+                      <input
+                        type="text"
+                        id="result"
+                        value={values.result}
+                        onChange={(e) => handleInputChange('result', e.target.value)}
+                        placeholder={t.result_placeholder}
+                        className={lastEdited.includes('result') ? 'active' : 'calculated'}
+                      />
+                    </div>
+                  )}
+                </>
               )}
-
-              <div className="input-group">
-                <label htmlFor="base">{mode === 'what_percent' ? 'What percentage (%) is' : t.base_label}</label>
-                <input
-                  type="text"
-                  id="base"
-                  value={values.base}
-                  onChange={(e) => handleInputChange('base', e.target.value)}
-                  placeholder={t.base_placeholder}
-                  className={lastEdited.includes('base') ? 'active' : 'calculated'}
-                />
-              </div>
-
-              {mode !== 'percent_of' && (
-                <div className="input-group">
-                  <label htmlFor="result">{mode === 'what_percent' ? 'out of' : t.result_label}</label>
-                  <input
-                    type="text"
-                    id="result"
-                    value={values.result}
-                    onChange={(e) => handleInputChange('result', e.target.value)}
-                    placeholder={t.result_placeholder}
-                    className={lastEdited.includes('result') ? 'active' : 'calculated'}
-                  />
-                </div>
-              )}
-
             </div>
 
             <div className="result-panel">
