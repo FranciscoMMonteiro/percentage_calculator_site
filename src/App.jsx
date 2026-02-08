@@ -14,7 +14,9 @@ function App() {
 
   const [decimalSeparator, setDecimalSeparator] = useState(() => {
     return localStorage.getItem('percentage_calculator_separator') || '.';
-  }); 
+  });
+
+  const [mode, setMode] = useState('percent_of');
 
   useEffect(() => {
     localStorage.setItem('percentage_calculator_language', language);
@@ -33,7 +35,7 @@ function App() {
     displayPercentage,
     displayBase,
     displayFormula
-  } = usePercentageCalculator(decimalSeparator);
+  } = usePercentageCalculator(decimalSeparator, mode);
 
   const handleCopyResult = async () => {
     const text = getResultText({
@@ -139,10 +141,30 @@ function App() {
         <section className="calculator-panel">
           <div className="calculator-card">
             <div className="tab-row">
-              <button className="tab active">X% of Y</button>
-              <button className="tab">What % is X of Y</button>
-              <button className="tab">Increase / Decrease</button>
-              <button className="tab">Percentage Change</button>
+              <button
+                className={`tab ${mode === 'percent_of' ? 'active' : ''}`}
+                onClick={() => setMode('percent_of')}
+              >
+                X% of Y
+              </button>
+              <button
+                className={`tab ${mode === 'what_percent' ? 'active' : ''}`}
+                onClick={() => setMode('what_percent')}
+              >
+                What % is X of Y
+              </button>
+              <button
+                className={`tab ${mode === 'increase_decrease' ? 'active' : ''}`}
+                onClick={() => setMode('increase_decrease')}
+              >
+                Increase / Decrease
+              </button>
+              <button
+                className={`tab ${mode === 'percentage_change' ? 'active' : ''}`}
+                onClick={() => setMode('percentage_change')}
+              >
+                Percentage Change
+              </button>
             </div>
 
             <div className="form">

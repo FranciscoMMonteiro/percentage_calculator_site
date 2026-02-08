@@ -19,7 +19,7 @@ const formatValue = (val, decimalSeparator) => {
   return val.toString();
 };
 
-export const usePercentageCalculator = (decimalSeparator) => {
+export const usePercentageCalculator = (decimalSeparator, mode) => {
   const [values, setValues] = useState({
     base: '',
     percentage: '',
@@ -55,23 +55,37 @@ export const usePercentageCalculator = (decimalSeparator) => {
 
     let calculatedValue = '';
 
-    if (missingField === 'result') {
-      const base = lastEdited.includes('base') ? parseValue(values.base, decimalSeparator) : 0;
-      const pct = lastEdited.includes('percentage') ? parseValue(values.percentage, decimalSeparator) : 0;
-      if (!isNaN(base) && !isNaN(pct)) {
-        calculatedValue = (base * (pct / 100)).toFixed(2);
+    const base = parseValue(values.base, decimalSeparator);
+    const pct = parseValue(values.percentage, decimalSeparator);
+    const res = parseValue(values.result, decimalSeparator);
+
+    if (mode === 'increase_decrease' || mode === 'percentage_change') {
+      if (missingField === 'result') {
+        if (!isNaN(base) && !isNaN(pct)) {
+          calculatedValue = (base * (1 + pct / 100)).toFixed(2);
+        }
+      } else if (missingField === 'base') {
+        if (!isNaN(res) && !isNaN(pct) && (1 + pct / 100) !== 0) {
+          calculatedValue = (res / (1 + pct / 100)).toFixed(2);
+        }
+      } else if (missingField === 'percentage') {
+        if (!isNaN(base) && !isNaN(res) && base !== 0) {
+          calculatedValue = (((res - base) / base) * 100).toFixed(2);
+        }
       }
-    } else if (missingField === 'base') {
-      const res = lastEdited.includes('result') ? parseValue(values.result, decimalSeparator) : 0;
-      const pct = lastEdited.includes('percentage') ? parseValue(values.percentage, decimalSeparator) : 0;
-      if (!isNaN(res) && !isNaN(pct) && pct !== 0) {
-        calculatedValue = (res / (pct / 100)).toFixed(2);
-      }
-    } else if (missingField === 'percentage') {
-      const base = lastEdited.includes('base') ? parseValue(values.base, decimalSeparator) : 0;
-      const res = lastEdited.includes('result') ? parseValue(values.result, decimalSeparator) : 0;
-      if (!isNaN(base) && !isNaN(res) && base !== 0) {
-        calculatedValue = ((res / base) * 100).toFixed(2);
+    } else {
+      if (missingField === 'result') {
+        if (!isNaN(base) && !isNaN(pct)) {
+          calculatedValue = (base * (pct / 100)).toFixed(2);
+        }
+      } else if (missingField === 'base') {
+        if (!isNaN(res) && !isNaN(pct) && pct !== 0) {
+          calculatedValue = (res / (pct / 100)).toFixed(2);
+        }
+      } else if (missingField === 'percentage') {
+        if (!isNaN(base) && !isNaN(res) && base !== 0) {
+          calculatedValue = ((res / base) * 100).toFixed(2);
+        }
       }
     }
 
@@ -85,7 +99,7 @@ export const usePercentageCalculator = (decimalSeparator) => {
       if (prev[missingField] === formattedCalculatedValue) return prev;
       return { ...prev, [missingField]: formattedCalculatedValue };
     });
-  }, [values.base, values.percentage, values.result, lastEdited, decimalSeparator]);
+  }, [values.base, values.percentage, values.result, lastEdited, decimalSeparator, mode]);
 
   const handleClear = () => {
     setValues({
@@ -96,40 +110,30 @@ export const usePercentageCalculator = (decimalSeparator) => {
     setLastEdited([]);
   };
 
-  const handleCalculate = () => {
-    const hasBase = values.base !== '';
-    const hasPercentage = values.percentage !== '';
-    const hasResult = values.result !== '';
-
-    if (hasBase && hasPercentage) {
-      setLastEdited(['base', 'percentage']);
-      return;
-    }
-
-    if (hasBase && hasResult) {
-      setLastEdited(['base', 'result']);
-      return;
-    }
-
-    if (hasPercentage && hasResult) {
-      setLastEdited(['percentage', 'result']);
-    }
-  };
-
   const displayResult = values.result || '—';
   const displayPercentage = values.percentage || '—';
   const displayBase = values.base || '—';
-  const displayFormula =
-    values.base && values.percentage && values.result
-      ? `${displayPercentage}% of ${displayBase} = ${displayResult}`
-      : 'Enter any two fields to calculate the third.';
+  const hasAll = values.base && values.percentage && values.result;
+  const displayFormula = hasAll
+    ? (() => {
+        if (mode === 'what_percent') {
+          return `${displayResult} is ${displayPercentage}% of ${displayBase}`;
+        }
+        if (mode === 'increase_decrease') {
+          return `${displayBase} with ${displayPercentage}% change = ${displayResult}`;
+        }
+        if (mode === 'percentage_change') {
+          return `Change from ${displayBase} to ${displayResult} = ${displayPercentage}%`;
+        }
+        return `${displayPercentage}% of ${displayBase} = ${displayResult}`;
+      })()
+    : 'Enter any two fields to calculate the third.';
 
   return {
     values,
     lastEdited,
     handleInputChange,
     handleClear,
-    handleCalculate,
     displayResult,
     displayPercentage,
     displayBase,
