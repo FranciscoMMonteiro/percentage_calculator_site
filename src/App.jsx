@@ -70,6 +70,16 @@ function App() {
     }
   };
 
+  const isWhatPercent = mode === 'what_percent';
+  const resultPanelValue = isWhatPercent ? displayPercentage : displayResult;
+  const formulaElement = isWhatPercent
+    ? (
+        <>
+          {displayBase} is <strong>{displayPercentage}%</strong> of {displayResult}
+        </>
+      )
+    : displayFormula;
+
   return (
     <div className="app-container">
       <header className="topbar">
@@ -240,8 +250,8 @@ function App() {
             </div>
 
             <div className="result-panel">
-              <div className="result-title">Result: <strong>{displayResult}</strong></div>
-              <div className="result-formula">{displayFormula}</div>
+              <div className="result-title">Result: <strong>{resultPanelValue}</strong></div>
+              <div className="result-formula">{formulaElement}</div>
               <div className="result-actions">
                 <button className="ghost-button" onClick={handleCopyResult}>Copy Result</button>
                 <button className="ghost-button" onClick={handleClear}>Clear all</button>
