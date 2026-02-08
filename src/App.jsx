@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Analytics } from "@vercel/analytics/react";
 import { translations } from './translations';
+import { copyResultText, getResultText, shareResultText } from './utils/resultActions';
+import { usePercentageCalculator } from './hooks/usePercentageCalculator';
 import './App.css';
 
 function App() {
@@ -22,147 +24,54 @@ function App() {
     localStorage.setItem('percentage_calculator_separator', decimalSeparator);
   }, [decimalSeparator]);
 
-  const [values, setValues] = useState({
-    base: '',
-    percentage: '',
-    result: ''
-  });
+  const {
+    values,
+    lastEdited,
+    handleInputChange,
+    handleClear,
+    handleCalculate,
+    displayResult,
+    displayPercentage,
+    displayBase,
+    displayFormula
+  } = usePercentageCalculator(decimalSeparator);
 
-  // Track the order of edited fields to know which one to calculate
-  const [lastEdited, setLastEdited] = useState([]);
-
-  const handleInputChange = (field, value) => {
-    // Allow numbers and the selected separator
-    const regex = decimalSeparator === '.' ? /^\d*\.?\d*$/ : /^\d*,?\d*$/;
-    if (!regex.test(value)) return;
-
-    setValues(prev => ({ ...prev, [field]: value }));
-
-    setLastEdited(prev => {
-      // Remove the field if it's already in the list to move it to the end
-      const filtered = prev.filter(f => f !== field);
-      // Add the field to the end (most recently edited)
-      const newOrder = [...filtered, field];
-      // Keep only the last 2 edited fields
-      return newOrder.slice(-2);
+  const handleCopyResult = async () => {
+    const text = getResultText({
+      base: values.base,
+      percentage: values.percentage,
+      result: values.result,
+      displayBase,
+      displayPercentage,
+      displayResult
     });
+    await copyResultText(text);
   };
 
-  const parseValue = (val) => {
-    if (!val) return NaN;
-    if (decimalSeparator === ',') {
-      return parseFloat(val.replace(',', '.'));
-    }
-    return parseFloat(val);
+  const handleReset = () => {
+    handleClear();
   };
 
-  const formatValue = (val) => {
-    if (decimalSeparator === ',') {
-      return val.toString().replace('.', ',');
-    }
-    return val.toString();
-  };
-
-  useEffect(() => {
-    // We need at least 2 fields to calculate the 3rd
-    if (lastEdited.length < 2) return;
-
-    const [first, second] = lastEdited;
-
-    // Determine the missing field (the one NOT in the last 2 edited)
-    const fields = ['base', 'percentage', 'result'];
-    const missingField = fields.find(f => !lastEdited.includes(f));
-
-    if (!missingField) return; // Should not happen if logic is correct
-
-    const val1 = parseValue(values[lastEdited[0]]);
-    const val2 = parseValue(values[lastEdited[1]]);
-
-    if (isNaN(val1) || isNaN(val2)) return;
-
-    let calculatedValue = '';
-
-    // Logic:
-    // Base * (Percentage / 100) = Result
-
-    if (missingField === 'result') {
-      // We have Base and Percentage
-      // Result = Base * (Percentage / 100)
-      const base = lastEdited.includes('base') ? parseValue(values.base) : 0;
-      const pct = lastEdited.includes('percentage') ? parseValue(values.percentage) : 0;
-      if (!isNaN(base) && !isNaN(pct)) {
-        calculatedValue = (base * (pct / 100)).toFixed(2);
-      }
-    } else if (missingField === 'base') {
-      // We have Result and Percentage
-      // Base = Result / (Percentage / 100)
-      const res = lastEdited.includes('result') ? parseValue(values.result) : 0;
-      const pct = lastEdited.includes('percentage') ? parseValue(values.percentage) : 0;
-      if (!isNaN(res) && !isNaN(pct) && pct !== 0) {
-        calculatedValue = (res / (pct / 100)).toFixed(2);
-      }
-    } else if (missingField === 'percentage') {
-      // We have Base and Result
-      // Percentage = (Result / Base) * 100
-      const base = lastEdited.includes('base') ? parseValue(values.base) : 0;
-      const res = lastEdited.includes('result') ? parseValue(values.result) : 0;
-      if (!isNaN(base) && !isNaN(res) && base !== 0) {
-        calculatedValue = ((res / base) * 100).toFixed(2);
-      }
-    }
-
-    // Remove trailing zeros if it's an integer
-    if (calculatedValue.endsWith('.00')) {
-      calculatedValue = calculatedValue.slice(0, -3);
-    }
-
-    const formattedCalculatedValue = formatValue(calculatedValue);
-
-    // Update the missing field without triggering a re-calculation loop
-    // We do this by checking if the value is different
-    setValues(prev => {
-      if (prev[missingField] === formattedCalculatedValue) return prev;
-      return { ...prev, [missingField]: formattedCalculatedValue };
+  const handleShare = async () => {
+    const text = getResultText({
+      base: values.base,
+      percentage: values.percentage,
+      result: values.result,
+      displayBase,
+      displayPercentage,
+      displayResult
     });
 
-  }, [values.base, values.percentage, values.result, lastEdited, decimalSeparator]);
-
-  const handleClear = () => {
-    setValues({
-      base: '',
-      percentage: '',
-      result: ''
+    const shared = await shareResultText({
+      title: t.title,
+      text,
+      url: window.location.href
     });
-    setLastEdited([]);
-  };
 
-  const handleCalculate = () => {
-    const hasBase = values.base !== '';
-    const hasPercentage = values.percentage !== '';
-    const hasResult = values.result !== '';
-
-    if (hasBase && hasPercentage) {
-      setLastEdited(['base', 'percentage']);
-      return;
-    }
-
-    if (hasBase && hasResult) {
-      setLastEdited(['base', 'result']);
-      return;
-    }
-
-    if (hasPercentage && hasResult) {
-      setLastEdited(['percentage', 'result']);
+    if (!shared) {
+      await copyResultText(text);
     }
   };
-
-  const displayResult = values.result || '—';
-  const displayPercentage = values.percentage || '—';
-  const displayBase = values.base || '—';
-  const displayFormula =
-    values.base && values.percentage && values.result
-      ? `${displayPercentage}% of ${displayBase} = ${displayResult}`
-      : 'Enter any two fields to calculate the third.';
 
   return (
     <div className="app-container">
@@ -292,9 +201,9 @@ function App() {
               <div className="result-title">Result: <strong>{displayResult}</strong></div>
               <div className="result-formula">{displayFormula}</div>
               <div className="result-actions">
-                <button className="ghost-button">Copy Result</button>
-                <button className="ghost-button">Reset</button>
-                <button className="ghost-button">Share</button>
+                <button className="ghost-button" onClick={handleCopyResult}>Copy Result</button>
+                <button className="ghost-button" onClick={handleReset}>Reset</button>
+                <button className="ghost-button" onClick={handleShare}>Share</button>
               </div>
             </div>
           </div>
