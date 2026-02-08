@@ -71,7 +71,7 @@ function App() {
   };
 
   const isWhatPercent = mode === 'what_percent';
-  const resultPanelValue = isWhatPercent ? displayPercentage : displayResult;
+  const resultPanelValue = isWhatPercent ? `${displayPercentage}%` : displayResult;
   const formulaElement = isWhatPercent
     ? (
         <>
