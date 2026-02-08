@@ -31,6 +31,7 @@ function App() {
     lastEdited,
     handleInputChange,
     handleClear,
+    applyPreset,
     displayResult,
     displayPercentage,
     displayBase,
@@ -135,6 +136,53 @@ function App() {
       })()
     : t.result_help;
 
+  const formatWithSeparator = (value) => {
+    if (decimalSeparator === ',') {
+      return value.replace('.', ',');
+    }
+    return value;
+  };
+
+  const handleExampleClick = (exampleKey) => {
+    if (exampleKey === 'tip') {
+      setMode('percent_of');
+      applyPreset(
+        {
+          base: formatWithSeparator('45'),
+          percentage: formatWithSeparator('10'),
+          result: ''
+        },
+        ['base', 'percentage']
+      );
+      return;
+    }
+
+    if (exampleKey === 'discount') {
+      setMode('percent_of');
+      applyPreset(
+        {
+          base: formatWithSeparator('199'),
+          percentage: formatWithSeparator('25'),
+          result: ''
+        },
+        ['base', 'percentage']
+      );
+      return;
+    }
+
+    if (exampleKey === 'change') {
+      setMode('percentage_change');
+      applyPreset(
+        {
+          base: formatWithSeparator('80'),
+          percentage: '',
+          result: formatWithSeparator('100')
+        },
+        ['base', 'result']
+      );
+    }
+  };
+
   return (
     <div className="app-container">
       <header className="topbar">
@@ -183,9 +231,9 @@ function App() {
           <div className="hero-section">
             <h2>{t.section_examples}</h2>
             <div className="pill-grid">
-              <button className="pill">{t.example_tip}</button>
-              <button className="pill">{t.example_discount}</button>
-              <button className="pill">{t.example_change}</button>
+              <button className="pill" onClick={() => handleExampleClick('tip')}>{t.example_tip}</button>
+              <button className="pill" onClick={() => handleExampleClick('discount')}>{t.example_discount}</button>
+              <button className="pill" onClick={() => handleExampleClick('change')}>{t.example_change}</button>
             </div>
             <button className="link-button">{t.link_examples}</button>
           </div>

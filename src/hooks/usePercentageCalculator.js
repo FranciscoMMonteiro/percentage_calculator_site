@@ -130,6 +130,11 @@ export const usePercentageCalculator = (decimalSeparator, mode) => {
     setLastEdited([]);
   };
 
+  const applyPreset = (nextValues, editedOrder = []) => {
+    setValues(nextValues);
+    setLastEdited(editedOrder);
+  };
+
   const displayResult = values.result || '—';
   const displayPercentage = values.percentage || '—';
   const displayBase = values.base || '—';
@@ -156,6 +161,7 @@ export const usePercentageCalculator = (decimalSeparator, mode) => {
     lastEdited,
     handleInputChange,
     handleClear,
+    applyPreset,
     displayResult,
     displayPercentage,
     displayBase,
