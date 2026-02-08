@@ -71,7 +71,10 @@ function App() {
   };
 
   const isWhatPercent = mode === 'what_percent';
-  const resultPanelValue = isWhatPercent ? `${displayPercentage}%` : displayResult;
+  const isPercentageChange = mode === 'percentage_change';
+  const resultPanelValue = (isWhatPercent || isPercentageChange)
+    ? `${displayPercentage}%`
+    : displayResult;
   const formulaElement = isWhatPercent
     ? (
         <>
@@ -201,6 +204,32 @@ function App() {
                       onChange={(e) => handleInputChange('percentage', e.target.value)}
                       placeholder={t.percentage_placeholder}
                       className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
+                    />
+                  </div>
+                </>
+              ) : mode === 'percentage_change' ? (
+                <>
+                  <div className="input-group">
+                    <label htmlFor="base">From</label>
+                    <input
+                      type="text"
+                      id="base"
+                      value={values.base}
+                      onChange={(e) => handleInputChange('base', e.target.value)}
+                      placeholder={t.base_placeholder}
+                      className={lastEdited.includes('base') ? 'active' : 'calculated'}
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label htmlFor="result">To</label>
+                    <input
+                      type="text"
+                      id="result"
+                      value={values.result}
+                      onChange={(e) => handleInputChange('result', e.target.value)}
+                      placeholder={t.result_placeholder}
+                      className={lastEdited.includes('result') ? 'active' : 'calculated'}
                     />
                   </div>
                 </>
