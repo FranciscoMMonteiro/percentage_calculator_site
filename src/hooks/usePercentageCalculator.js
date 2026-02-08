@@ -140,7 +140,9 @@ export const usePercentageCalculator = (decimalSeparator, mode) => {
           return `${displayBase} is ${displayPercentage}% of ${displayResult}`;
         }
         if (mode === 'increase_decrease') {
-          return `${displayBase} with ${displayPercentage}% change = ${displayResult}`;
+          const pctValue = parseValue(values.percentage, decimalSeparator);
+          const changeLabel = !isNaN(pctValue) && pctValue < 0 ? 'decrease' : 'increase';
+          return `${displayBase} with ${displayPercentage}% ${changeLabel} = ${displayResult}`;
         }
         if (mode === 'percentage_change') {
           return `Change from ${displayBase} to ${displayResult} = ${displayPercentage}%`;
