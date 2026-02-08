@@ -14,7 +14,7 @@ function App() {
 
   const [decimalSeparator, setDecimalSeparator] = useState(() => {
     return localStorage.getItem('percentage_calculator_separator') || '.';
-  });
+  }); 
 
   useEffect(() => {
     localStorage.setItem('percentage_calculator_language', language);
@@ -29,7 +29,6 @@ function App() {
     lastEdited,
     handleInputChange,
     handleClear,
-    handleCalculate,
     displayResult,
     displayPercentage,
     displayBase,
@@ -46,10 +45,6 @@ function App() {
       displayResult
     });
     await copyResultText(text);
-  };
-
-  const handleReset = () => {
-    handleClear();
   };
 
   const handleShare = async () => {
@@ -187,14 +182,6 @@ function App() {
                 />
               </div>
 
-              <div className="button-row">
-                <button className="primary-button" onClick={handleCalculate}>
-                  Calculate
-                </button>
-                <button className="secondary-button" onClick={handleClear}>
-                  {t.clear_button}
-                </button>
-              </div>
             </div>
 
             <div className="result-panel">
@@ -202,7 +189,7 @@ function App() {
               <div className="result-formula">{displayFormula}</div>
               <div className="result-actions">
                 <button className="ghost-button" onClick={handleCopyResult}>Copy Result</button>
-                <button className="ghost-button" onClick={handleReset}>Reset</button>
+                <button className="ghost-button" onClick={handleClear}>Clear all</button>
                 <button className="ghost-button" onClick={handleShare}>Share</button>
               </div>
             </div>
