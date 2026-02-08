@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Analytics } from "@vercel/analytics/react";
 import { translations } from './translations';
+import './App.css';
 
 function App() {
   const [language, setLanguage] = useState(() => {
