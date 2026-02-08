@@ -192,17 +192,19 @@ function App() {
                 />
               </div>
 
-              <div className="input-group">
-                <label htmlFor="result">{t.result_label}</label>
-                <input
-                  type="text"
-                  id="result"
-                  value={values.result}
-                  onChange={(e) => handleInputChange('result', e.target.value)}
-                  placeholder={t.result_placeholder}
-                  className={lastEdited.includes('result') ? 'active' : 'calculated'}
-                />
-              </div>
+              {mode !== 'percent_of' && (
+                <div className="input-group">
+                  <label htmlFor="result">{t.result_label}</label>
+                  <input
+                    type="text"
+                    id="result"
+                    value={values.result}
+                    onChange={(e) => handleInputChange('result', e.target.value)}
+                    placeholder={t.result_placeholder}
+                    className={lastEdited.includes('result') ? 'active' : 'calculated'}
+                  />
+                </div>
+              )}
 
             </div>
 
