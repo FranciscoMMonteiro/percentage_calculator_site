@@ -75,13 +75,65 @@ function App() {
   const resultPanelValue = (isWhatPercent || isPercentageChange)
     ? `${displayPercentage}%`
     : displayResult;
-  const formulaElement = isWhatPercent
-    ? (
-        <>
-          {displayBase} is <strong>{displayPercentage}%</strong> of {displayResult}
-        </>
-      )
-    : displayFormula;
+  const hasAllValues = values.base && values.percentage && values.result;
+  const parseNumber = (value) => {
+    if (!value) return NaN;
+    return decimalSeparator === ',' ? parseFloat(value.replace(',', '.')) : parseFloat(value);
+  };
+  const formatTemplate = (template, params) => {
+    return template.replace(/\{(\w+)\}/g, (match, key) => {
+      return params[key] ?? match;
+    });
+  };
+
+  const renderWhatPercentFormula = () => {
+    const template = t.formula_what_percent;
+    const parts = template.split('{pct}%');
+    if (parts.length !== 2) {
+      return formatTemplate(template, {
+        base: displayBase,
+        pct: displayPercentage,
+        result: displayResult
+      });
+    }
+    return (
+      <>
+        {formatTemplate(parts[0], { base: displayBase, result: displayResult })}
+        <strong>{displayPercentage}%</strong>
+        {formatTemplate(parts[1], { base: displayBase, result: displayResult })}
+      </>
+    );
+  };
+
+  const formulaElement = hasAllValues
+    ? (() => {
+        if (mode === 'what_percent') {
+          return renderWhatPercentFormula();
+        }
+        if (mode === 'increase_decrease') {
+          const pctValue = parseNumber(values.percentage);
+          const changeLabel = !isNaN(pctValue) && pctValue < 0 ? t.change_decrease : t.change_increase;
+          return formatTemplate(t.formula_increase_decrease, {
+            base: displayBase,
+            pct: displayPercentage,
+            change: changeLabel,
+            result: displayResult
+          });
+        }
+        if (mode === 'percentage_change') {
+          return formatTemplate(t.formula_percentage_change, {
+            base: displayBase,
+            pct: displayPercentage,
+            result: displayResult
+          });
+        }
+        return formatTemplate(t.formula_percent_of, {
+          base: displayBase,
+          pct: displayPercentage,
+          result: displayResult
+        });
+      })()
+    : t.result_help;
 
   return (
     <div className="app-container">
@@ -121,62 +173,62 @@ function App() {
         <section className="hero">
           <div className="hero-header">
             <h1>{t.title}</h1>
-            <p className="subtitle">{t.subtitle}</p>
             <div className="hero-badges">
-              <span>No signup</span>
-              <span>Fast</span>
-              <span>Mobile-friendly</span>
+              <span>{t.badge_no_signup}</span>
+              <span>{t.badge_fast}</span>
+              <span>{t.badge_mobile}</span>
             </div>
           </div>
 
           <div className="hero-section">
-            <h2>Example Calculations</h2>
+            <h2>{t.section_examples}</h2>
             <div className="pill-grid">
-              <button className="pill">Tip 10% on $45</button>
-              <button className="pill">25% off $199</button>
-              <button className="pill">From 80 to 100, what %?</button>
+              <button className="pill">{t.example_tip}</button>
+              <button className="pill">{t.example_discount}</button>
+              <button className="pill">{t.example_change}</button>
             </div>
-            <button className="link-button">See more examples →</button>
+            <button className="link-button">{t.link_examples}</button>
           </div>
 
           <div className="hero-section">
-            <h2>Related Calculators</h2>
+            <h2>{t.section_related}</h2>
             <div className="pill-grid">
-              <button className="pill">Discount Calculator</button>
-              <button className="pill">Tax / VAT Calculator</button>
-              <button className="pill">Tip Calculator</button>
-              <button className="pill">Fraction to Percent</button>
-              <button className="pill">Percentage Change</button>
+              <button className="pill">{t.related_discount}</button>
+              <button className="pill">{t.related_tax}</button>
+              <button className="pill">{t.related_tip}</button>
+              <button className="pill">{t.related_fraction}</button>
+              <button className="pill">{t.related_change}</button>
             </div>
           </div>
         </section>
 
         <section className="calculator-panel">
+          <p className="card-explainer">{t.subtitle}</p>
           <div className="calculator-card">
             <div className="tab-row">
               <button
                 className={`tab ${mode === 'percent_of' ? 'active' : ''}`}
                 onClick={() => setMode('percent_of')}
               >
-                X% of Y
+                {t.tab_percent_of}
               </button>
               <button
                 className={`tab ${mode === 'what_percent' ? 'active' : ''}`}
                 onClick={() => setMode('what_percent')}
               >
-                What % is X of Y
+                {t.tab_what_percent}
               </button>
               <button
                 className={`tab ${mode === 'increase_decrease' ? 'active' : ''}`}
                 onClick={() => setMode('increase_decrease')}
               >
-                Increase / Decrease
+                {t.tab_increase_decrease}
               </button>
               <button
                 className={`tab ${mode === 'percentage_change' ? 'active' : ''}`}
                 onClick={() => setMode('percentage_change')}
               >
-                Percentage Change
+                {t.tab_percentage_change}
               </button>
             </div>
 
@@ -196,7 +248,7 @@ function App() {
                   </div>
 
                   <div className="input-group">
-                    <label htmlFor="percentage">Percentage (%) Increase/Decrease</label>
+                    <label htmlFor="percentage">{t.label_percentage_increase_decrease}</label>
                     <input
                       type="text"
                       id="percentage"
@@ -210,7 +262,7 @@ function App() {
               ) : mode === 'percentage_change' ? (
                 <>
                   <div className="input-group">
-                    <label htmlFor="base">From</label>
+                    <label htmlFor="base">{t.label_from}</label>
                     <input
                       type="text"
                       id="base"
@@ -222,7 +274,7 @@ function App() {
                   </div>
 
                   <div className="input-group">
-                    <label htmlFor="result">To</label>
+                    <label htmlFor="result">{t.label_to}</label>
                     <input
                       type="text"
                       id="result"
@@ -250,7 +302,7 @@ function App() {
                   )}
 
                   <div className="input-group">
-                    <label htmlFor="base">{mode === 'what_percent' ? 'What percentage (%) is' : t.base_label}</label>
+                    <label htmlFor="base">{mode === 'what_percent' ? t.label_what_percentage_is : t.base_label}</label>
                     <input
                       type="text"
                       id="base"
@@ -263,7 +315,7 @@ function App() {
 
                   {mode !== 'percent_of' && (
                     <div className="input-group">
-                      <label htmlFor="result">{mode === 'what_percent' ? 'out of' : t.result_label}</label>
+                      <label htmlFor="result">{mode === 'what_percent' ? t.label_out_of : t.result_label}</label>
                       <input
                         type="text"
                         id="result"
@@ -279,12 +331,12 @@ function App() {
             </div>
 
             <div className="result-panel">
-              <div className="result-title">Result: <strong>{resultPanelValue}</strong></div>
+              <div className="result-title">{t.result_title}: <strong>{resultPanelValue}</strong></div>
               <div className="result-formula">{formulaElement}</div>
               <div className="result-actions">
-                <button className="ghost-button" onClick={handleCopyResult}>Copy Result</button>
-                <button className="ghost-button" onClick={handleClear}>Clear all</button>
-                <button className="ghost-button" onClick={handleShare}>Share</button>
+                <button className="ghost-button" onClick={handleCopyResult}>{t.button_copy}</button>
+                <button className="ghost-button" onClick={handleClear}>{t.button_clear}</button>
+                <button className="ghost-button" onClick={handleShare}>{t.button_share}</button>
               </div>
             </div>
           </div>

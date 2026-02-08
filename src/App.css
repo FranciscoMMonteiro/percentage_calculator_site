@@ -127,7 +127,16 @@
 
 .calculator-panel {
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.card-explainer {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  max-width: 360px;
+  text-align: right;
 }
 
 .calculator-card {
@@ -306,7 +315,7 @@
   }
 
   .calculator-panel {
-    justify-content: center;
+    align-items: center;
   }
 
   .tab-row {
