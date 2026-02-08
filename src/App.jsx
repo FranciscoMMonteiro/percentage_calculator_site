@@ -183,7 +183,7 @@ function App() {
               )}
 
               <div className="input-group">
-                <label htmlFor="base">{mode === 'what_percent' ? 'What % of' : t.base_label}</label>
+                <label htmlFor="base">{mode === 'what_percent' ? 'What percentage (%) is' : t.base_label}</label>
                 <input
                   type="text"
                   id="base"
