@@ -168,20 +168,22 @@ function App() {
             </div>
 
             <div className="form">
-              <div className="input-group">
-                <label htmlFor="percentage">{t.percentage_label}</label>
-                <input
-                  type="text"
-                  id="percentage"
-                  value={values.percentage}
-                  onChange={(e) => handleInputChange('percentage', e.target.value)}
-                  placeholder={t.percentage_placeholder}
-                  className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
-                />
-              </div>
+              {mode !== 'what_percent' && (
+                <div className="input-group">
+                  <label htmlFor="percentage">{t.percentage_label}</label>
+                  <input
+                    type="text"
+                    id="percentage"
+                    value={values.percentage}
+                    onChange={(e) => handleInputChange('percentage', e.target.value)}
+                    placeholder={t.percentage_placeholder}
+                    className={lastEdited.includes('percentage') ? 'active' : 'calculated'}
+                  />
+                </div>
+              )}
 
               <div className="input-group">
-                <label htmlFor="base">{t.base_label}</label>
+                <label htmlFor="base">{mode === 'what_percent' ? 'What % of' : t.base_label}</label>
                 <input
                   type="text"
                   id="base"
@@ -194,7 +196,7 @@ function App() {
 
               {mode !== 'percent_of' && (
                 <div className="input-group">
-                  <label htmlFor="result">{t.result_label}</label>
+                  <label htmlFor="result">{mode === 'what_percent' ? 'out of' : t.result_label}</label>
                   <input
                     type="text"
                     id="result"
