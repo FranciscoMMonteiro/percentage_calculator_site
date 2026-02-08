@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 
-const createNumberRegex = (decimalSeparator) => {
-  return decimalSeparator === '.' ? /^\d*\.?\d*$/ : /^\d*,?\d*$/;
+const createNumberRegex = (decimalSeparator, allowNegative) => {
+  if (decimalSeparator === '.') {
+    return allowNegative ? /^-?\d*\.?\d*$/ : /^\d*\.?\d*$/;
+  }
+  return allowNegative ? /^-?\d*,?\d*$/ : /^\d*,?\d*$/;
 };
 
 const parseValue = (val, decimalSeparator) => {
@@ -28,10 +31,13 @@ export const usePercentageCalculator = (decimalSeparator, mode) => {
 
   const [lastEdited, setLastEdited] = useState([]);
 
-  const numberRegex = useMemo(() => createNumberRegex(decimalSeparator), [decimalSeparator]);
+  const numberRegex = useMemo(() => createNumberRegex(decimalSeparator, false), [decimalSeparator]);
+  const negativeNumberRegex = useMemo(() => createNumberRegex(decimalSeparator, true), [decimalSeparator]);
 
   const handleInputChange = (field, value) => {
-    if (!numberRegex.test(value)) return;
+    const allowNegative = mode === 'increase_decrease' && field === 'percentage';
+    const regex = allowNegative ? negativeNumberRegex : numberRegex;
+    if (!regex.test(value)) return;
 
     setValues(prev => ({ ...prev, [field]: value }));
 
