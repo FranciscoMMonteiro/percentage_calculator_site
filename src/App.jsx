@@ -17,6 +17,7 @@ function App() {
   });
 
   const [mode, setMode] = useState('percent_of');
+  const [showMoreExamples, setShowMoreExamples] = useState(false);
 
   useEffect(() => {
     localStorage.setItem('percentage_calculator_language', language);
@@ -144,42 +145,97 @@ function App() {
   };
 
   const handleExampleClick = (exampleKey) => {
-    if (exampleKey === 'tip') {
-      setMode('percent_of');
-      applyPreset(
-        {
-          base: formatWithSeparator('45'),
-          percentage: formatWithSeparator('10'),
-          result: ''
-        },
-        ['base', 'percentage']
-      );
-      return;
-    }
-
-    if (exampleKey === 'discount') {
-      setMode('percent_of');
-      applyPreset(
-        {
-          base: formatWithSeparator('199'),
-          percentage: formatWithSeparator('25'),
-          result: ''
-        },
-        ['base', 'percentage']
-      );
-      return;
-    }
-
-    if (exampleKey === 'change') {
-      setMode('percentage_change');
-      applyPreset(
-        {
-          base: formatWithSeparator('80'),
-          percentage: '',
-          result: formatWithSeparator('100')
-        },
-        ['base', 'result']
-      );
+    switch (exampleKey) {
+      case 'percent_of_main':
+        setMode('percent_of');
+        applyPreset(
+          {
+            base: formatWithSeparator('150'),
+            percentage: formatWithSeparator('20'),
+            result: ''
+          },
+          ['base', 'percentage']
+        );
+        return;
+      case 'percent_of_more':
+        setMode('percent_of');
+        applyPreset(
+          {
+            base: formatWithSeparator('45'),
+            percentage: formatWithSeparator('10'),
+            result: ''
+          },
+          ['base', 'percentage']
+        );
+        return;
+      case 'what_percent_main':
+        setMode('what_percent');
+        applyPreset(
+          {
+            base: formatWithSeparator('45'),
+            percentage: '',
+            result: formatWithSeparator('180')
+          },
+          ['base', 'result']
+        );
+        return;
+      case 'what_percent_more':
+        setMode('what_percent');
+        applyPreset(
+          {
+            base: formatWithSeparator('12'),
+            percentage: '',
+            result: formatWithSeparator('60')
+          },
+          ['base', 'result']
+        );
+        return;
+      case 'increase_main':
+        setMode('increase_decrease');
+        applyPreset(
+          {
+            base: formatWithSeparator('120'),
+            percentage: formatWithSeparator('15'),
+            result: ''
+          },
+          ['base', 'percentage']
+        );
+        return;
+      case 'increase_more':
+        setMode('increase_decrease');
+        applyPreset(
+          {
+            base: formatWithSeparator('90'),
+            percentage: formatWithSeparator('-20'),
+            result: ''
+          },
+          ['base', 'percentage']
+        );
+        return;
+      case 'change_main':
+        setMode('percentage_change');
+        applyPreset(
+          {
+            base: formatWithSeparator('80'),
+            percentage: '',
+            result: formatWithSeparator('100')
+          },
+          ['base', 'result']
+        );
+        return;
+      case 'change_more':
+        setMode('percentage_change');
+        applyPreset(
+          {
+            base: formatWithSeparator('250'),
+            percentage: '',
+            result: formatWithSeparator('200')
+          },
+          ['base', 'result']
+        );
+        return;
+      default:
+        return;
     }
   };
 
@@ -231,11 +287,27 @@ function App() {
           <div className="hero-section">
             <h2>{t.section_examples}</h2>
             <div className="pill-grid">
-              <button className="pill" onClick={() => handleExampleClick('tip')}>{t.example_tip}</button>
-              <button className="pill" onClick={() => handleExampleClick('discount')}>{t.example_discount}</button>
-              <button className="pill" onClick={() => handleExampleClick('change')}>{t.example_change}</button>
+              <button className="pill" onClick={() => handleExampleClick('percent_of_main')}>{t.example_percent_of_main}</button>
+              <button className="pill" onClick={() => handleExampleClick('what_percent_main')}>{t.example_what_percent_main}</button>
+              <button className="pill" onClick={() => handleExampleClick('increase_main')}>{t.example_increase_main}</button>
+              <button className="pill" onClick={() => handleExampleClick('change_main')}>{t.example_change_main}</button>
             </div>
-            <button className="link-button">{t.link_examples}</button>
+            <button
+              className="link-button"
+              onClick={() => setShowMoreExamples((prev) => !prev)}
+              aria-expanded={showMoreExamples}
+              aria-controls="more-examples"
+            >
+              {showMoreExamples ? t.link_examples_close : t.link_examples_open}
+            </button>
+            {showMoreExamples && (
+              <div className="pill-grid examples-more" id="more-examples">
+                <button className="pill" onClick={() => handleExampleClick('percent_of_more')}>{t.example_percent_of_more}</button>
+                <button className="pill" onClick={() => handleExampleClick('what_percent_more')}>{t.example_what_percent_more}</button>
+                <button className="pill" onClick={() => handleExampleClick('increase_more')}>{t.example_increase_more}</button>
+                <button className="pill" onClick={() => handleExampleClick('change_more')}>{t.example_change_more}</button>
+              </div>
+            )}
           </div>
 
           <div className="hero-section">
