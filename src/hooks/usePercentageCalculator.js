@@ -79,6 +79,20 @@ export const usePercentageCalculator = (decimalSeparator, mode) => {
           calculatedValue = (((res - base) / base) * 100).toFixed(2);
         }
       }
+    } else if (mode === 'what_percent') {
+      if (missingField === 'percentage') {
+        if (!isNaN(base) && !isNaN(res) && res !== 0) {
+          calculatedValue = ((base / res) * 100).toFixed(2);
+        }
+      } else if (missingField === 'base') {
+        if (!isNaN(res) && !isNaN(pct)) {
+          calculatedValue = (res * (pct / 100)).toFixed(2);
+        }
+      } else if (missingField === 'result') {
+        if (!isNaN(base) && !isNaN(pct) && pct !== 0) {
+          calculatedValue = (base / (pct / 100)).toFixed(2);
+        }
+      }
     } else {
       if (missingField === 'result') {
         if (!isNaN(base) && !isNaN(pct)) {
@@ -123,7 +137,7 @@ export const usePercentageCalculator = (decimalSeparator, mode) => {
   const displayFormula = hasAll
     ? (() => {
         if (mode === 'what_percent') {
-          return `${displayResult} is ${displayPercentage}% of ${displayBase}`;
+          return `${displayBase} is ${displayPercentage}% of ${displayResult}`;
         }
         if (mode === 'increase_decrease') {
           return `${displayBase} with ${displayPercentage}% change = ${displayResult}`;
