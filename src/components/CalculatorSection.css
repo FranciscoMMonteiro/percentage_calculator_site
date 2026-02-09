@@ -1,0 +1,19 @@
+.calculator-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.card-explainer {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.95rem;
+  max-width: 420px;
+  text-align: left;
+}
+
+@media (max-width: 960px) {
+  .calculator-panel {
+    align-items: center;
+  }
+}

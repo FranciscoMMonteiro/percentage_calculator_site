@@ -1,0 +1,27 @@
+.tab-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #e7eef9;
+  border-bottom: 1px solid #d5e0f3;
+}
+
+.tab {
+  padding: 10px 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: #2b3a55;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: linear-gradient(135deg, #ff7a45 0%, #f05b2a 100%);
+  color: #fff;
+}
+
+@media (max-width: 960px) {
+  .tab-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

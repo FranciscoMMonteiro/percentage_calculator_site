@@ -8,7 +8,7 @@ export const getResultText = ({ base, percentage, result, displayBase, displayPe
 export const copyResultText = async (text) => {
   try {
     await navigator.clipboard.writeText(text);
-  } catch (error) {
+  } catch {
     const tempInput = document.createElement('input');
     tempInput.value = text;
     document.body.appendChild(tempInput);
@@ -23,7 +23,7 @@ export const shareResultText = async ({ title, text, url }) => {
     try {
       await navigator.share({ title, text, url });
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   }

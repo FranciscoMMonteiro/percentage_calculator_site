@@ -1,0 +1,46 @@
+.result-panel {
+  padding: 16px 20px 18px;
+  background: #23395b;
+  color: #e9f0ff;
+}
+
+.result-title {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.result-title strong {
+  font-size: 1.2rem;
+}
+
+.result-formula {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.result-actions {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.ghost-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e9f0ff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.ghost-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 540px) {
+  .result-actions {
+    grid-template-columns: 1fr;
+  }
+}
