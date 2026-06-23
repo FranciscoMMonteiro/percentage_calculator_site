@@ -1,4 +1,3 @@
-import HeroHeader from './HeroHeader';
 import ExamplesSection from './ExamplesSection';
 import RelatedCalculators from './RelatedCalculators';
 import './Hero.css';
@@ -13,7 +12,6 @@ const Hero = ({
 }) => {
   return (
     <section className="hero">
-      <HeroHeader t={t} />
       <ExamplesSection
         t={t}
         examplesMain={examplesMain}

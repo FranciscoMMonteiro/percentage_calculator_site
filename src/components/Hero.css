@@ -4,58 +4,10 @@
   gap: 32px;
 }
 
-.hero-header h1 {
-  font-size: clamp(2.1rem, 3.2vw, 3rem);
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.02em;
-  background: linear-gradient(180deg, #ffffff 0%, #cdddff 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #f4f7ff;
-  margin-bottom: 10px;
-}
-
 .subtitle {
   color: var(--text-soft);
   max-width: 420px;
   font-size: 0.98rem;
-}
-
-.hero-badges {
-  margin-top: 16px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.hero-badges span {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 12px 6px 26px;
-  font-size: 0.82rem;
-  font-weight: 500;
-  color: #e9f0ff;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 999px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-
-.hero-badges span::before {
-  content: '';
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #7bdff6;
-  box-shadow: 0 0 8px rgba(123, 223, 246, 0.8);
-  transform: translateY(-50%);
 }
 
 .hero-section h2 {

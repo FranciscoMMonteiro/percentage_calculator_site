@@ -3,10 +3,7 @@ import './TopBar.css';
 const TopBar = ({ t, language, onLanguageChange, decimalSeparator, onSeparatorChange }) => {
   return (
     <header className="topbar">
-      <div className="brand">
-        <span className="brand-dot" />
-        {t.title}
-      </div>
+      <h1 className="brand-title">{t.title}</h1>
       <div className="top-controls">
         <div className="control-group">
           <label className="control-label" htmlFor="language-select">{t.language_label}</label>
