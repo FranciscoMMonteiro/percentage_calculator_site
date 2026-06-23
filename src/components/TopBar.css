@@ -3,25 +3,40 @@
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  margin-bottom: 32px;
+  margin: 0 auto 36px;
+  max-width: 1180px;
+  padding: 14px clamp(16px, 2.5vw, 24px);
   flex-wrap: wrap;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  box-shadow: var(--shadow-soft);
 }
 
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: #e9f0ff;
+  font-size: 1.12rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #eef4ff;
 }
 
 .brand-dot {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background: #ff7a45;
-  box-shadow: 0 0 12px rgba(255, 122, 69, 0.7);
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent-glow);
+  animation: brand-pulse 2.8s ease-in-out infinite;
+}
+
+@keyframes brand-pulse {
+  0%, 100% { box-shadow: 0 0 10px var(--accent-glow); }
+  50% { box-shadow: 0 0 20px var(--accent-glow); }
 }
 
 .top-controls {
@@ -34,25 +49,36 @@
   display: flex;
   flex-direction: column;
   gap: 6px;
-  min-width: 160px;
+  min-width: 150px;
 }
 
 .control-label {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.1em;
+  color: var(--text-soft);
+  font-weight: 600;
 }
 
 .language-switcher select,
 .separator-switcher select {
+  width: 100%;
   background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--glass-border);
   color: #ffffff;
-  padding: 8px 12px;
-  border-radius: 10px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
   font-size: 0.85rem;
+  font-weight: 500;
   outline: none;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.language-switcher select:hover,
+.separator-switcher select:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: var(--glass-border-strong);
 }
 
 .language-switcher select option,

@@ -1,8 +1,23 @@
 .calculator-card {
   width: 100%;
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(14, 34, 64, 0.35);
+  position: relative;
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(calc(var(--blur) + 4px));
+  -webkit-backdrop-filter: blur(calc(var(--blur) + 4px));
+}
+
+/* Gradient accent edge along the top of the card */
+.calculator-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-gradient);
+  z-index: 2;
 }

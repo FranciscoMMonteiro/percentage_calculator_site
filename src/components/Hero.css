@@ -5,14 +5,20 @@
 }
 
 .hero-header h1 {
-  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-size: clamp(2.1rem, 3.2vw, 3rem);
   font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #ffffff 0%, #cdddff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   color: #f4f7ff;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .subtitle {
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--text-soft);
   max-width: 420px;
   font-size: 0.98rem;
 }
@@ -20,31 +26,41 @@
 .hero-badges {
   margin-top: 16px;
   display: flex;
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.9rem;
 }
 
 .hero-badges span {
   position: relative;
-  padding-left: 18px;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px 6px 26px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #e9f0ff;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .hero-badges span::before {
   content: '';
   position: absolute;
-  left: 0;
+  left: 12px;
   top: 50%;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: #7bdff6;
+  box-shadow: 0 0 8px rgba(123, 223, 246, 0.8);
   transform: translateY(-50%);
 }
 
 .hero-section h2 {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 700;
   color: #e1e9ff;
   margin-bottom: 14px;
 }
@@ -57,30 +73,56 @@
 
 .examples-more {
   margin-top: 10px;
+  animation: fade-in-up 0.3s ease both;
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .pill {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: inline-block;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   color: #e9f0ff;
-  padding: 8px 14px;
-  border-radius: 10px;
+  padding: 9px 15px;
+  border-radius: var(--radius-sm);
   font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: transform 0.2s ease, border-color 0.2s ease,
+    background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .pill:hover {
-  border-color: rgba(255, 255, 255, 0.35);
-  background: rgba(255, 255, 255, 0.15);
+  border-color: var(--glass-border-strong);
+  background: var(--glass-bg-strong);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(8, 24, 52, 0.3);
+}
+
+.pill:active {
+  transform: translateY(0);
 }
 
 .link-button {
   margin-top: 12px;
+  align-self: flex-start;
   background: none;
   border: none;
   color: #9fd3ff;
   font-size: 0.9rem;
+  font-weight: 600;
   cursor: pointer;
   text-align: left;
+  padding: 4px 2px;
+  transition: color 0.2s ease;
+}
+
+.link-button:hover {
+  color: #c8e6ff;
 }

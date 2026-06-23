@@ -12,8 +12,9 @@ const ResultPanel = ({ t, resultPanelValue, formulaSegments, onCopy, onClear, on
 
   return (
     <div className="result-panel">
-      <div className="result-title">
-        {t.result_title}: <strong>{resultPanelValue}</strong>
+      <div className="result-title" aria-live="polite">
+        <span className="result-label">{t.result_title}</span>
+        <strong className="result-value">{resultPanelValue}</strong>
       </div>
       <div className="result-formula">{renderFormula()}</div>
       <div className="result-actions">

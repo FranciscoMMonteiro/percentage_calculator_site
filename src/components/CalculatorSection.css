@@ -2,18 +2,23 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
+  gap: 14px;
 }
 
 .card-explainer {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-soft);
   font-size: 0.95rem;
-  max-width: 420px;
+  line-height: 1.5;
+  max-width: 440px;
   text-align: left;
 }
 
 @media (max-width: 960px) {
   .calculator-panel {
     align-items: center;
+  }
+
+  .card-explainer {
+    text-align: center;
   }
 }

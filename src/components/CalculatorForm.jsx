@@ -9,6 +9,7 @@ const CalculatorForm = ({ t, mode, values, lastEdited, onInputChange }) => {
             <label htmlFor="base">{t.base_label}</label>
             <input
               type="text"
+              inputMode="decimal"
               id="base"
               value={values.base}
               onChange={(e) => onInputChange('base', e.target.value)}
@@ -21,6 +22,7 @@ const CalculatorForm = ({ t, mode, values, lastEdited, onInputChange }) => {
             <label htmlFor="percentage">{t.label_percentage_increase_decrease}</label>
             <input
               type="text"
+              inputMode="decimal"
               id="percentage"
               value={values.percentage}
               onChange={(e) => onInputChange('percentage', e.target.value)}
@@ -35,6 +37,7 @@ const CalculatorForm = ({ t, mode, values, lastEdited, onInputChange }) => {
             <label htmlFor="base">{t.label_from}</label>
             <input
               type="text"
+              inputMode="decimal"
               id="base"
               value={values.base}
               onChange={(e) => onInputChange('base', e.target.value)}
@@ -47,6 +50,7 @@ const CalculatorForm = ({ t, mode, values, lastEdited, onInputChange }) => {
             <label htmlFor="result">{t.label_to}</label>
             <input
               type="text"
+              inputMode="decimal"
               id="result"
               value={values.result}
               onChange={(e) => onInputChange('result', e.target.value)}
@@ -62,6 +66,7 @@ const CalculatorForm = ({ t, mode, values, lastEdited, onInputChange }) => {
               <label htmlFor="percentage">{t.percentage_label}</label>
               <input
                 type="text"
+                inputMode="decimal"
                 id="percentage"
                 value={values.percentage}
                 onChange={(e) => onInputChange('percentage', e.target.value)}
@@ -77,6 +82,7 @@ const CalculatorForm = ({ t, mode, values, lastEdited, onInputChange }) => {
             </label>
             <input
               type="text"
+              inputMode="decimal"
               id="base"
               value={values.base}
               onChange={(e) => onInputChange('base', e.target.value)}
@@ -92,6 +98,7 @@ const CalculatorForm = ({ t, mode, values, lastEdited, onInputChange }) => {
               </label>
               <input
                 type="text"
+                inputMode="decimal"
                 id="result"
                 value={values.result}
                 onChange={(e) => onInputChange('result', e.target.value)}

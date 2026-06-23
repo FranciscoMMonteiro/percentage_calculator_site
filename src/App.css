@@ -4,14 +4,14 @@
 
 .app-container {
   width: 100%;
-  padding: 24px clamp(16px, 4vw, 48px) 60px;
+  padding: 28px clamp(16px, 4vw, 48px) 72px;
 }
 
 .page {
   display: grid;
   grid-template-columns: 1fr;
-  gap: clamp(24px, 4vw, 60px);
-  max-width: 1200px;
+  gap: clamp(28px, 4vw, 56px);
+  max-width: 1180px;
   margin: 0 auto;
   align-items: start;
 }
