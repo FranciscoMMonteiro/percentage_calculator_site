@@ -1,12 +1,20 @@
 import { Head } from 'vite-react-ssg';
 import { getAlternateLocales, getPath } from '../config/routes';
 import { getSeo } from '../config/seo';
-import { HREFLANG, OG_IMAGE, SITE_NAME, SITE_URL, DEFAULT_LOCALE } from '../config/site';
+import {
+  ADSENSE_CLIENT,
+  HREFLANG,
+  OG_IMAGE,
+  SITE_NAME,
+  SITE_URL,
+  DEFAULT_LOCALE
+} from '../config/site';
+
+// Set VITE_ADSENSE_CLIENT to an empty string to build without the ad script.
+const adsenseClient = import.meta.env.VITE_ADSENSE_CLIENT ?? ADSENSE_CLIENT;
 
 // No trailing slash except on the root — vercel.json pins `trailingSlash: false`,
 // so any other form would make canonical point at a redirecting URL.
-const ADSENSE_CLIENT = import.meta.env.VITE_ADSENSE_CLIENT;
-
 const absolute = (routePath) => `${SITE_URL}${routePath === '/' ? '/' : routePath}`;
 
 const faqSchema = (faq) => ({
@@ -119,12 +127,12 @@ const Seo = ({ locale, page, breadcrumbs, faq, howTo, isCalculator }) => {
         </script>
       ))}
 
-      {/* Set VITE_ADSENSE_CLIENT (e.g. ca-pub-1234567890123456) in the Vercel
-          project to activate AdSense site verification and ad serving. */}
-      {ADSENSE_CLIENT && (
+      {/* AdSense site verification and ad serving. The publisher ID also has
+          to appear in public/ads.txt or AdSense flags unauthorized inventory. */}
+      {adsenseClient && (
         <script
           async
-          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsenseClient}`}
           crossOrigin="anonymous"
         />
       )}

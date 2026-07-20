@@ -79,12 +79,11 @@ These need an account and cannot be done from the repo:
    `https://www.calcpercentages.com/sitemap.xml`, and confirm pages are being
    indexed before applying to AdSense. Applying with nothing in the index is the
    most common rejection.
-2. **AdSense application** — apply once indexing has started. Then:
-   - Set `VITE_ADSENSE_CLIENT=ca-pub-XXXXXXXXXXXXXXXX` as an environment variable
-     in the Vercel project and redeploy. `src/components/Seo.jsx` injects the
-     verification/serving script on every page when that variable is present.
-   - Replace `pub-XXXXXXXXXXXXXXXX` in `public/ads.txt` with the real publisher
-     ID. AdSense reports an "unauthorized inventory" warning until this matches.
+2. **AdSense application** — apply once indexing has started. The publisher ID
+   `ca-pub-7168114647201128` is already wired up: the loader script is emitted on
+   every page by `src/components/Seo.jsx`, and `public/ads.txt` matches it. The
+   two must stay in sync or AdSense reports unauthorized inventory. Set
+   `VITE_ADSENSE_CLIENT=""` to produce a build with no ad script.
 3. **Consent (EEA/UK/Switzerland)** — enable Google's *Privacy & messaging* CMP
    in the AdSense dashboard. No code needed; it is required before personalised
    ads may be served to European visitors, and the privacy policy already
