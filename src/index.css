@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/* The Inter stylesheet is linked from index.html — an @import here would be
+   render-blocking and delay first paint. */
 
 :root {
   /* Brand */
@@ -46,21 +47,30 @@ html {
 body {
   font-family: 'Inter', sans-serif;
   background-color: #0c2c5a;
-  background-image:
-    radial-gradient(1200px 600px at 75% -10%, rgba(255, 122, 69, 0.18), transparent 60%),
-    radial-gradient(900px 500px at 0% 110%, rgba(36, 102, 178, 0.35), transparent 55%),
-    linear-gradient(180deg, rgba(8, 24, 52, 0.45) 0%, rgba(8, 24, 52, 0.7) 100%),
-    url('/background.png');
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+/* The artwork sits on a fixed layer instead of using
+   `background-attachment: fixed`, which forces a repaint on every scroll frame
+   on mobile. Pages are long now, so the image must not stretch with them. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    radial-gradient(1200px 600px at 75% -10%, rgba(255, 122, 69, 0.18), transparent 60%),
+    radial-gradient(900px 500px at 0% 110%, rgba(36, 102, 178, 0.35), transparent 55%),
+    linear-gradient(180deg, rgba(8, 24, 52, 0.45) 0%, rgba(8, 24, 52, 0.7) 100%),
+    image-set(url('/background.webp') type('image/webp'), url('/background.png') type('image/png'));
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
 }
 
 button,

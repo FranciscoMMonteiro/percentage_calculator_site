@@ -1,0 +1,118 @@
+.prose-section {
+  margin-top: 36px;
+  color: var(--text-soft);
+  line-height: 1.7;
+  font-size: 1rem;
+}
+
+.prose-section h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #eef3ff;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+}
+
+.prose-section h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #dbe6ff;
+  margin: 24px 0 8px;
+}
+
+.prose-section p {
+  margin-bottom: 14px;
+}
+
+.prose-section ul,
+.prose-section ol {
+  margin: 0 0 16px 22px;
+}
+
+.prose-section li {
+  margin-bottom: 8px;
+}
+
+.prose-section a {
+  color: #9fd3ff;
+}
+
+.prose-formula {
+  font-variant-numeric: tabular-nums;
+  background: rgba(255, 255, 255, 0.08);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  color: #f4f7ff;
+  font-weight: 600;
+}
+
+.prose-note {
+  background: rgba(255, 122, 69, 0.12);
+  border: 1px solid rgba(255, 138, 91, 0.35);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  color: #ffe3d5;
+}
+
+/* Wide tables scroll inside their own box so the page never scrolls sideways. */
+.prose-table-wrap {
+  overflow-x: auto;
+  margin-bottom: 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--glass-border);
+}
+
+.prose-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 460px;
+}
+
+.prose-table th,
+.prose-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.prose-table thead th {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f4f7ff;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.prose-table tbody th {
+  font-weight: 600;
+  color: #e4ecff;
+}
+
+.prose-table tbody tr:last-child th,
+.prose-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.faq-list {
+  margin-top: 8px;
+}
+
+.faq-item {
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-item dt {
+  font-weight: 600;
+  color: #eef3ff;
+  margin-bottom: 6px;
+}
+
+.faq-item dd {
+  margin: 0;
+}
