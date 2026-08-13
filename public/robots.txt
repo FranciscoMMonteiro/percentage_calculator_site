@@ -4,4 +4,4 @@ Allow: /
 User-agent: Mediapartners-Google
 Allow: /
 
-Sitemap: https://www.calcpercentages.com/sitemap.xml
+Sitemap: https://calcpercentages.com/sitemap.xml

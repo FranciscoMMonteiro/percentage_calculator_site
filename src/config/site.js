@@ -1,4 +1,4 @@
-export const SITE_URL = 'https://www.calcpercentages.com';
+export const SITE_URL = 'https://calcpercentages.com';
 export const SITE_NAME = 'CalcPercentages';
 export const CONTACT_EMAIL = 'franfactory.store@gmail.com';
 export const OG_IMAGE = `${SITE_URL}/og-image.png`;
