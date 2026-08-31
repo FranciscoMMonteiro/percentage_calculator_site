@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSite } from '../context/siteContext';
-import { CALCULATOR_PAGES, getPath, hasPage } from '../config/routes';
+import { TOOL_PAGES, getPath, hasPage } from '../config/routes';
 import { RELATED_SITES } from '../config/site';
 import './Hero.css';
 
@@ -10,7 +10,7 @@ import './Hero.css';
  */
 const RelatedCalculators = ({ exclude }) => {
   const { t, locale } = useSite();
-  const internal = CALCULATOR_PAGES.filter(
+  const internal = TOOL_PAGES.filter(
     (page) => page !== exclude && hasPage(locale, page)
   );
 

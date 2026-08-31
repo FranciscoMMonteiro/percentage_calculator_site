@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useSite } from '../context/siteContext';
-import { CALCULATOR_PAGES, getPathWithFallback } from '../config/routes';
+import { GUIDE_PAGES, TOOL_PAGES, getPathWithFallback, isForeignLink } from '../config/routes';
 import { RELATED_SITES, SITE_NAME } from '../config/site';
 import './Footer.css';
 
@@ -10,7 +10,14 @@ const FooterColumn = ({ heading, pages, t, locale }) => (
     <ul>
       {pages.map((page) => (
         <li key={page}>
-          <Link to={getPathWithFallback(locale, page)}>{t[`nav_${page}`]}</Link>
+          {/* A locale without this page gets the English one. Saying so beats
+              sending the visitor somewhere unexpected without warning. */}
+          <Link to={getPathWithFallback(locale, page)}>
+            {t[`nav_${page}`]}
+            {isForeignLink(locale, page) && (
+              <span className="visually-hidden"> ({t.english_link_hint})</span>
+            )}
+          </Link>
         </li>
       ))}
     </ul>
@@ -30,13 +37,19 @@ const Footer = () => {
 
         <FooterColumn
           heading={t.footer_calculators}
-          pages={['home', ...CALCULATOR_PAGES]}
+          pages={['home', ...TOOL_PAGES]}
+          t={t}
+          locale={locale}
+        />
+        <FooterColumn
+          heading={t.footer_guides}
+          pages={GUIDE_PAGES}
           t={t}
           locale={locale}
         />
         <FooterColumn
           heading={t.footer_site}
-          pages={['faq', 'about', 'contact']}
+          pages={['faq', 'methodology', 'about', 'contact']}
           t={t}
           locale={locale}
         />

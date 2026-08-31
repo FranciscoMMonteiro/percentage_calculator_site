@@ -9,7 +9,13 @@ export const PAGES = [
   'tip',
   'vat',
   'margin',
+  'salary',
+  'points',
+  'formulas',
+  'mentalmath',
+  'mistakes',
   'faq',
+  'methodology',
   'about',
   'contact',
   'privacy',
@@ -18,16 +24,17 @@ export const PAGES = [
 
 /**
  * Long-form content only exists in English and Portuguese for now; the other
- * locales ship the calculator home page. hreflang and the sitemap are both
- * derived from this map, so they can never advertise a page that wasn't built.
+ * locales ship the calculator home page plus the methodology page. hreflang and
+ * the sitemap are both derived from this map, so they can never advertise a
+ * page that wasn't built.
  */
 export const LOCALE_PAGES = {
   en: PAGES,
   pt: PAGES,
-  es: ['home'],
-  fr: ['home'],
-  de: ['home'],
-  it: ['home']
+  es: ['home', 'methodology'],
+  fr: ['home', 'methodology'],
+  de: ['home', 'methodology'],
+  it: ['home', 'methodology']
 };
 
 /**
@@ -41,7 +48,13 @@ export const SLUGS = {
     tip: 'tip-calculator',
     vat: 'vat-calculator',
     margin: 'margin-calculator',
+    salary: 'salary-raise-calculator',
+    points: 'percentage-points-calculator',
+    formulas: 'percentage-formulas',
+    mentalmath: 'mental-math-percentages',
+    mistakes: 'percentage-mistakes',
     faq: 'faq',
+    methodology: 'methodology',
     about: 'about',
     contact: 'contact',
     privacy: 'privacy',
@@ -53,20 +66,27 @@ export const SLUGS = {
     tip: 'calculadora-de-gorjeta',
     vat: 'calculadora-de-imposto',
     margin: 'calculadora-de-margem',
+    salary: 'calculadora-de-aumento-salarial',
+    points: 'calculadora-de-pontos-percentuais',
+    formulas: 'formulas-de-porcentagem',
+    mentalmath: 'porcentagem-de-cabeca',
+    mistakes: 'erros-de-porcentagem',
     faq: 'perguntas-frequentes',
+    methodology: 'metodologia',
     about: 'sobre',
     contact: 'contato',
     privacy: 'privacidade',
     terms: 'termos'
   },
-  es: { home: '' },
-  fr: { home: '' },
-  de: { home: '' },
-  it: { home: '' }
+  es: { home: '', methodology: 'metodologia' },
+  fr: { home: '', methodology: 'methodologie' },
+  de: { home: '', methodology: 'methodik' },
+  it: { home: '', methodology: 'metodologia' }
 };
 
 /**
- * The four preset calculators map onto modes the existing hook already supports.
+ * Pages that re-open the main four-mode calculator on the tab matching their
+ * topic. These share the solver in usePercentageCalculator.
  */
 export const CALCULATOR_PRESETS = {
   discount: { mode: 'increase_decrease' },
@@ -76,6 +96,18 @@ export const CALCULATOR_PRESETS = {
 };
 
 export const CALCULATOR_PAGES = Object.keys(CALCULATOR_PRESETS);
+
+/**
+ * Calculators with maths the three-field solver cannot express, each with its
+ * own hook and form.
+ */
+export const STANDALONE_CALCULATORS = ['salary', 'points'];
+
+/** Everything that is a tool, for the footer and the related-links strip. */
+export const TOOL_PAGES = [...CALCULATOR_PAGES, ...STANDALONE_CALCULATORS];
+
+/** Long-form articles with no calculator of their own. */
+export const GUIDE_PAGES = ['formulas', 'mentalmath', 'mistakes'];
 
 export const hasPage = (locale, page) => Boolean(LOCALE_PAGES[locale]?.includes(page));
 
@@ -90,11 +122,16 @@ export const getPath = (locale, page) => {
 };
 
 /**
- * Falls back to the locale's home page when the requested page has no
- * translation yet — used by the language switcher so it never dead-ends.
+ * Falls back to the English page when the requested one has no translation yet.
+ * Pointing at the real article in another language beats looping the visitor
+ * back to their own home page, which is what a locale without subpages used to
+ * do — it left those locales with no outbound navigation at all.
  */
 export const getPathWithFallback = (locale, page) =>
-  hasPage(locale, page) ? getPath(locale, page) : getPath(locale, 'home');
+  hasPage(locale, page) ? getPath(locale, page) : getPath(DEFAULT_LOCALE, page);
+
+/** True when the link a locale gets for this page leaves its own language. */
+export const isForeignLink = (locale, page) => !hasPage(locale, page);
 
 /** Locales that actually have this page built, for hreflang alternates. */
 export const getAlternateLocales = (page) => LOCALES.filter((locale) => hasPage(locale, page));

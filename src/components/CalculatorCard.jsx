@@ -12,6 +12,7 @@ const CalculatorCard = ({
   onInputChange,
   resultPanelValue,
   formulaSegments,
+  workedSteps,
   onCopy,
   onClear,
   onShare
@@ -30,6 +31,7 @@ const CalculatorCard = ({
         t={t}
         resultPanelValue={resultPanelValue}
         formulaSegments={formulaSegments}
+        steps={workedSteps}
         onCopy={onCopy}
         onClear={onClear}
         onShare={onShare}

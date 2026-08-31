@@ -1,19 +1,7 @@
 import { useMemo, useState } from 'react';
 import { formatTemplate, parseNumber } from '../utils/formatters';
-
-const createNumberRegex = (decimalSeparator, allowNegative) => {
-  if (decimalSeparator === '.') {
-    return allowNegative ? /^-?\d*\.?\d*$/ : /^\d*\.?\d*$/;
-  }
-  return allowNegative ? /^-?\d*,?\d*$/ : /^\d*,?\d*$/;
-};
-
-const formatValue = (val, decimalSeparator) => {
-  if (decimalSeparator === ',') {
-    return val.toString().replace('.', ',');
-  }
-  return val.toString();
-};
+import { createNumberRegex, formatValue } from '../utils/numberInput';
+import { buildWorkedSteps } from '../utils/workedSteps';
 
 const buildWhatPercentSegments = (template, params, pctText) => {
   const parts = template.split('{pct}%');
@@ -161,6 +149,10 @@ export const usePercentageCalculator = (decimalSeparator, mode, translations) =>
     });
   };
 
+  const solvedField = lastEdited.length === 2
+    ? ['base', 'percentage', 'result'].find((field) => !lastEdited.includes(field))
+    : null;
+
   const displayResult = values.result || '—';
   const displayPercentage = values.percentage || '—';
   const displayBase = values.base || '—';
@@ -210,6 +202,16 @@ export const usePercentageCalculator = (decimalSeparator, mode, translations) =>
       })()
     : [{ text: translations.result_help, strong: false }];
 
+  const workedSteps = hasAll && solvedField
+    ? buildWorkedSteps({
+        mode,
+        solvedField,
+        values,
+        decimalSeparator,
+        t: translations
+      })
+    : [];
+
   return {
     values,
     lastEdited,
@@ -220,6 +222,7 @@ export const usePercentageCalculator = (decimalSeparator, mode, translations) =>
     displayResult,
     displayPercentage,
     displayBase,
-    formulaSegments
+    formulaSegments,
+    workedSteps
   };
 };

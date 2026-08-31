@@ -7,7 +7,7 @@ export const SEO = {
     home: {
       title: 'Percentage Calculator — Fast, Free, No Sign-up',
       description:
-        'Calculate any percentage instantly. Percent of a number, what percent X is of Y, increases, decreases and percentage change — with formulas and worked examples.'
+        'Calculate any percentage instantly and see the working. Percent of a number, what percent X is of Y, increases, decreases and percentage change.'
     },
     discount: {
       title: 'Discount Calculator — Percent Off and Sale Price',
@@ -29,10 +29,40 @@ export const SEO = {
       description:
         'Turn cost and revenue into a profit margin percentage, and convert between margin and markup with a conversion table.'
     },
+    salary: {
+      title: 'Salary Raise Calculator — Percent and Real Terms',
+      description:
+        'Work out a pay rise as a percentage or a cash amount, see the monthly difference, and check what it is worth once inflation is taken off.'
+    },
+    points: {
+      title: 'Percentage Points Calculator — Points vs Percent',
+      description:
+        'Compare two percentages and see the percentage-point gap, the relative change and the percentage difference side by side, each named.'
+    },
+    formulas: {
+      title: 'Percentage Formulas — Every Formula With Examples',
+      description:
+        'The eight percentage formulas that cover almost every question, each with its inverse and a worked example you can check line by line.'
+    },
+    mentalmath: {
+      title: 'How to Do Percentages in Your Head',
+      description:
+        'The 10% anchor, the reversal trick and the benchmark fractions that let you work out tips, discounts and tax without reaching for a phone.'
+    },
+    mistakes: {
+      title: 'Common Percentage Mistakes and How to Avoid Them',
+      description:
+        'Six percentage errors that change real decisions — points versus percent, non-reversible changes, unweighted averages — each with a worked case.'
+    },
     faq: {
       title: 'Percentage Calculator FAQ',
       description:
         'Answers to common questions about calculating percentages and about how this calculator works.'
+    },
+    methodology: {
+      title: 'Methodology — How Results Are Calculated',
+      description:
+        'The formulas behind every calculator on this site, the rounding rules, the known limits of floating-point arithmetic, and how pages are reviewed.'
     },
     about: {
       title: 'About CalcPercentages',
@@ -58,7 +88,7 @@ export const SEO = {
     home: {
       title: 'Calculadora de Porcentagem — Rápida e Grátis',
       description:
-        'Calcule qualquer porcentagem na hora. Porcentagem de um número, quanto por cento X é de Y, aumento, redução e variação percentual — com fórmulas e exemplos.'
+        'Calcule qualquer porcentagem na hora e veja a conta passo a passo. Porcentagem de um número, quanto por cento X é de Y, aumento e variação.'
     },
     discount: {
       title: 'Calculadora de Desconto — Preço com Desconto',
@@ -80,10 +110,40 @@ export const SEO = {
       description:
         'Converta custo e receita em margem de lucro percentual e faça a conversão entre margem e markup com tabela de equivalência.'
     },
+    salary: {
+      title: 'Calculadora de Aumento Salarial — Real e Nominal',
+      description:
+        'Calcule o aumento em porcentagem ou em reais, veja a diferença por mês e descubra quanto sobra do reajuste depois de descontar a inflação.'
+    },
+    points: {
+      title: 'Calculadora de Pontos Percentuais',
+      description:
+        'Compare duas porcentagens e veja lado a lado a diferença em pontos percentuais, a variação relativa e a diferença percentual, cada uma nomeada.'
+    },
+    formulas: {
+      title: 'Fórmulas de Porcentagem — Todas com Exemplos',
+      description:
+        'As oito fórmulas de porcentagem que resolvem quase tudo, cada uma com a sua inversa e um exemplo resolvido que você pode conferir linha a linha.'
+    },
+    mentalmath: {
+      title: 'Como Calcular Porcentagem de Cabeça',
+      description:
+        'O atalho dos 10%, o truque da inversão e as frações de referência que resolvem gorjeta, desconto e imposto sem pegar o celular.'
+    },
+    mistakes: {
+      title: 'Erros Comuns de Porcentagem e Como Evitá-los',
+      description:
+        'Seis erros de porcentagem que mudam decisões reais — pontos versus por cento, variações que não se desfazem, médias sem peso — com exemplos.'
+    },
     faq: {
       title: 'Perguntas Frequentes sobre Porcentagem',
       description:
         'Respostas às dúvidas mais comuns sobre cálculo de porcentagem e sobre como esta calculadora funciona.'
+    },
+    methodology: {
+      title: 'Metodologia — Como os Resultados São Calculados',
+      description:
+        'As fórmulas por trás de cada calculadora do site, as regras de arredondamento, os limites do ponto flutuante e como as páginas são revisadas.'
     },
     about: {
       title: 'Sobre o CalcPercentages',
@@ -109,7 +169,12 @@ export const SEO = {
     home: {
       title: 'Calculadora de Porcentajes — Rápida y Gratis',
       description:
-        'Calcula cualquier porcentaje al instante: porcentaje de un número, qué porcentaje es X de Y, aumentos, descuentos y variación porcentual.'
+        'Calcula cualquier porcentaje al instante y ve la operación paso a paso: porcentaje de un número, proporción, aumentos, descuentos y variación.'
+    },
+    methodology: {
+      title: 'Metodología — Cómo se Calculan los Resultados',
+      description:
+        'Las fórmulas detrás de la calculadora, las reglas de redondeo, los límites de la coma flotante y cómo se revisan las páginas.'
     }
   },
 
@@ -117,7 +182,12 @@ export const SEO = {
     home: {
       title: 'Calculatrice de Pourcentage — Rapide et Gratuite',
       description:
-        'Calculez n\'importe quel pourcentage instantanément : pourcentage d\'un nombre, proportion, hausse, baisse et variation en pourcentage.'
+        'Calculez n\'importe quel pourcentage instantanément et voyez le détail du calcul : pourcentage d\'un nombre, proportion, hausse, baisse et variation.'
+    },
+    methodology: {
+      title: 'Méthodologie — Comment les Résultats Sont Calculés',
+      description:
+        'Les formules derrière la calculatrice, les règles d\'arrondi, les limites du calcul en virgule flottante et la façon dont les pages sont relues.'
     }
   },
 
@@ -125,7 +195,12 @@ export const SEO = {
     home: {
       title: 'Prozentrechner — Schnell und Kostenlos',
       description:
-        'Berechnen Sie jeden Prozentwert sofort: Prozent von einer Zahl, Anteil in Prozent, Zu- und Abschläge sowie prozentuale Veränderung.'
+        'Berechnen Sie jeden Prozentwert sofort und sehen Sie den Rechenweg: Prozent von einer Zahl, Anteil in Prozent, Zu- und Abschläge, Veränderung.'
+    },
+    methodology: {
+      title: 'Methodik — Wie die Ergebnisse Berechnet Werden',
+      description:
+        'Die Formeln hinter dem Rechner, die Rundungsregeln, die Grenzen der Gleitkommaarithmetik und wie die Seiten geprüft werden.'
     }
   },
 
@@ -133,7 +208,12 @@ export const SEO = {
     home: {
       title: 'Calcolatrice di Percentuale — Veloce e Gratis',
       description:
-        'Calcola qualsiasi percentuale all\'istante: percentuale di un numero, quale percentuale è X di Y, aumenti, sconti e variazione percentuale.'
+        'Calcola qualsiasi percentuale all\'istante e vedi il procedimento: percentuale di un numero, proporzione, aumenti, sconti e variazione percentuale.'
+    },
+    methodology: {
+      title: 'Metodologia — Come Vengono Calcolati i Risultati',
+      description:
+        'Le formule dietro la calcolatrice, le regole di arrotondamento, i limiti della virgola mobile e come vengono riviste le pagine.'
     }
   }
 };

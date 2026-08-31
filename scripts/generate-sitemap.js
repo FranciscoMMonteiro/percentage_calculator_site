@@ -1,21 +1,23 @@
 import { writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { getAllRoutes, getAlternateLocales, getPath } from '../src/config/routes.js';
+import { getReviewed } from '../src/config/reviewed.js';
 import { HREFLANG, SITE_URL, DEFAULT_LOCALE } from '../src/config/site.js';
 
 // Must match the canonical form emitted by src/components/Seo.jsx.
 const abs = (routePath) => `${SITE_URL}${routePath === '/' ? '/' : routePath}`;
 
+const LOW_PRIORITY = ['privacy', 'terms', 'about', 'contact', 'methodology'];
+
 const priorityFor = (page) => {
   if (page === 'home') return '1.0';
-  if (['privacy', 'terms', 'about', 'contact'].includes(page)) return '0.3';
+  if (LOW_PRIORITY.includes(page)) return '0.3';
   return '0.8';
 };
 
-const changefreqFor = (page) =>
-  ['privacy', 'terms', 'about', 'contact'].includes(page) ? 'yearly' : 'monthly';
+const changefreqFor = (page) => (LOW_PRIORITY.includes(page) ? 'yearly' : 'monthly');
 
-export const buildSitemap = (lastmod = new Date().toISOString().slice(0, 10)) => {
+export const buildSitemap = (fallbackLastmod = new Date().toISOString().slice(0, 10)) => {
   const entries = getAllRoutes().map(({ page, path: routePath }) => {
     const alternates = getAlternateLocales(page)
       .map(
@@ -35,7 +37,7 @@ export const buildSitemap = (lastmod = new Date().toISOString().slice(0, 10)) =>
       `    <loc>${abs(routePath)}</loc>`,
       alternates,
       xDefault,
-      `    <lastmod>${lastmod}</lastmod>`,
+      `    <lastmod>${getReviewed(page) ?? fallbackLastmod}</lastmod>`,
       `    <changefreq>${changefreqFor(page)}</changefreq>`,
       `    <priority>${priorityFor(page)}</priority>`,
       '  </url>'
