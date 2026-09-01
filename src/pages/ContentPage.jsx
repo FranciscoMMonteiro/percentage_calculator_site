@@ -5,10 +5,13 @@ import Seo from '../components/Seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Prose from '../components/Prose';
 import FaqList from '../components/FaqList';
+import ReviewedDate from '../components/ReviewedDate';
+import RelatedCalculators from '../components/RelatedCalculators';
 import './Page.css';
 
 /**
- * FAQ, About, Contact, Privacy and Terms — prose pages with no calculator.
+ * The prose pages with no calculator of their own: the guides, FAQ,
+ * methodology, About, Contact, Privacy and Terms.
  */
 const ContentPage = ({ page }) => {
   const { t, locale } = useSite();
@@ -21,7 +24,12 @@ const ContentPage = ({ page }) => {
 
   return (
     <>
-      <Seo locale={locale} page={page} breadcrumbs={trail} faq={content.faq} />
+      <Seo
+        locale={locale}
+        page={page}
+        breadcrumbs={trail}
+        faq={content.faq}
+      />
 
       <Breadcrumbs trail={trail} label={t.nav_home} />
 
@@ -36,7 +44,11 @@ const ContentPage = ({ page }) => {
         {content.faq?.length > 0 && (
           <FaqList heading={t.section_faq} items={content.faq} />
         )}
+
+        <ReviewedDate />
       </article>
+
+      <RelatedCalculators />
     </>
   );
 };

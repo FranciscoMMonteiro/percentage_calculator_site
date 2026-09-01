@@ -28,8 +28,8 @@ const Calculator = ({ initialMode = 'percent_of', showExamples = false }) => {
     recalculate,
     displayResult,
     displayPercentage,
-    displayBase,
-    formulaSegments
+    formulaSegments,
+    workedSteps
   } = calculator;
 
   // Re-solve when the separator preference changes, without re-running on mount.
@@ -40,13 +40,14 @@ const Calculator = ({ initialMode = 'percent_of', showExamples = false }) => {
     recalculate(mode, decimalSeparator);
   }, [decimalSeparator, mode, recalculate]);
 
+  const isPercentageOutput = mode === 'what_percent' || mode === 'percentage_change';
+  const resultPanelValue = isPercentageOutput ? `${displayPercentage}%` : displayResult;
+
   const resultText = () => getResultText({
-    base: values.base,
-    percentage: values.percentage,
-    result: values.result,
-    displayBase,
-    displayPercentage,
-    displayResult
+    formulaSegments,
+    resultPanelValue,
+    complete: Boolean(values.base && values.percentage && values.result),
+    t
   });
 
   const handleCopyResult = () => copyResultText(resultText());
@@ -80,9 +81,6 @@ const Calculator = ({ initialMode = 'percent_of', showExamples = false }) => {
     );
   };
 
-  const isPercentageOutput = mode === 'what_percent' || mode === 'percentage_change';
-  const resultPanelValue = isPercentageOutput ? `${displayPercentage}%` : displayResult;
-
   return (
     <section className="calculator-panel" id="calculator">
       <p className="card-explainer">{t.subtitle}</p>
@@ -95,6 +93,7 @@ const Calculator = ({ initialMode = 'percent_of', showExamples = false }) => {
         onInputChange={handleInputChange}
         resultPanelValue={resultPanelValue}
         formulaSegments={formulaSegments}
+        workedSteps={workedSteps}
         onCopy={handleCopyResult}
         onClear={handleClear}
         onShare={handleShare}

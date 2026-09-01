@@ -4,6 +4,7 @@ import Seo from '../components/Seo';
 import Calculator from '../components/Calculator';
 import Prose from '../components/Prose';
 import FaqList from '../components/FaqList';
+import ReviewedDate from '../components/ReviewedDate';
 import RelatedCalculators from '../components/RelatedCalculators';
 import './Page.css';
 
@@ -29,6 +30,7 @@ const HomePage = () => {
         {content.faq?.length > 0 && (
           <FaqList heading={t.section_faq} items={content.faq} />
         )}
+        <ReviewedDate />
       </article>
     </>
   );

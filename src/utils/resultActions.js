@@ -1,8 +1,13 @@
-export const getResultText = ({ base, percentage, result, displayBase, displayPercentage, displayResult }) => {
-  if (base && percentage && result) {
-    return `${displayPercentage}% of ${displayBase} = ${displayResult}`;
+/**
+ * The copied text is the same sentence the result panel shows, so it is already
+ * in the visitor's language and already describes the mode they were using.
+ * Building it from the rendered segments is what keeps those three in step.
+ */
+export const getResultText = ({ formulaSegments = [], resultPanelValue, complete, t }) => {
+  if (complete && formulaSegments.length) {
+    return formulaSegments.map((segment) => segment.text).join('');
   }
-  return `Result: ${displayResult}`;
+  return `${t.result_title}: ${resultPanelValue}`;
 };
 
 export const copyResultText = async (text) => {

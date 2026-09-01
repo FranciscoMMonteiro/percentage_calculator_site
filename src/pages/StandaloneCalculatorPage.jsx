@@ -1,19 +1,30 @@
 import { useSite } from '../context/siteContext';
 import { getContent } from '../content';
-import { CALCULATOR_PRESETS, getPath } from '../config/routes';
+import { getPath } from '../config/routes';
 import Seo from '../components/Seo';
-import Calculator from '../components/Calculator';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Prose from '../components/Prose';
 import HowToSteps from '../components/HowToSteps';
 import FaqList from '../components/FaqList';
 import ReviewedDate from '../components/ReviewedDate';
 import RelatedCalculators from '../components/RelatedCalculators';
+import SalaryCalculator from '../components/SalaryCalculator';
+import PointsCalculator from '../components/PointsCalculator';
 import './Page.css';
 
-const PresetCalculatorPage = ({ page }) => {
+/**
+ * The calculators whose arithmetic the three-field solver cannot express, each
+ * with its own hook and form.
+ */
+const TOOLS = {
+  salary: SalaryCalculator,
+  points: PointsCalculator
+};
+
+const StandaloneCalculatorPage = ({ page }) => {
   const { t, locale } = useSite();
   const content = getContent(locale, page);
+  const Tool = TOOLS[page];
 
   const trail = [
     { label: t.nav_home, path: getPath(locale, 'home') },
@@ -38,7 +49,7 @@ const PresetCalculatorPage = ({ page }) => {
         <p className="page-lead">{content.lead}</p>
       </header>
 
-      <Calculator initialMode={CALCULATOR_PRESETS[page].mode} />
+      <Tool />
 
       <article className="page-article">
         <Prose sections={content.sections} />
@@ -54,4 +65,4 @@ const PresetCalculatorPage = ({ page }) => {
   );
 };
 
-export default PresetCalculatorPage;
+export default StandaloneCalculatorPage;

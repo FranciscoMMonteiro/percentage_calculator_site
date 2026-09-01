@@ -1,14 +1,16 @@
 import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import PresetCalculatorPage from './pages/PresetCalculatorPage';
+import StandaloneCalculatorPage from './pages/StandaloneCalculatorPage';
 import ContentPage from './pages/ContentPage';
 import NotFoundPage from './pages/NotFoundPage';
-import { CALCULATOR_PAGES, LOCALE_PAGES, SLUGS } from './config/routes';
+import { CALCULATOR_PAGES, LOCALE_PAGES, SLUGS, STANDALONE_CALCULATORS } from './config/routes';
 import { DEFAULT_LOCALE, LOCALES } from './config/site';
 
 const elementFor = (page) => {
   if (page === 'home') return <HomePage />;
   if (CALCULATOR_PAGES.includes(page)) return <PresetCalculatorPage page={page} />;
+  if (STANDALONE_CALCULATORS.includes(page)) return <StandaloneCalculatorPage page={page} />;
   return <ContentPage page={page} />;
 };
 

@@ -1,5 +1,6 @@
 import { Head } from 'vite-react-ssg';
-import { getAlternateLocales, getPath } from '../config/routes';
+import { GUIDE_PAGES, getAlternateLocales, getPath } from '../config/routes';
+import { getReviewed } from '../config/reviewed';
 import { getSeo } from '../config/seo';
 import {
   ADSENSE_CLIENT,
@@ -40,7 +41,18 @@ const howToSchema = (howTo, url) => ({
   }))
 });
 
-const appSchema = ({ title, description, url, locale }) => ({
+const articleSchema = ({ title, description, url, locale, reviewed }) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  url,
+  inLanguage: HREFLANG[locale],
+  ...(reviewed ? { dateModified: reviewed } : {}),
+  publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL }
+});
+
+const appSchema = ({ title, description, url, locale, reviewed }) => ({
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: title,
@@ -51,6 +63,7 @@ const appSchema = ({ title, description, url, locale }) => ({
   browserRequirements: 'Requires JavaScript',
   inLanguage: HREFLANG[locale],
   isAccessibleForFree: true,
+  ...(reviewed ? { dateModified: reviewed } : {}),
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
 });
 
@@ -81,9 +94,13 @@ const Seo = ({ locale, page, breadcrumbs, faq, howTo, isCalculator }) => {
   const { title, description } = getSeo(locale, page);
   const path = getPath(locale, page);
   const url = absolute(path);
+  const reviewed = getReviewed(page);
 
   const schemas = [];
-  if (isCalculator) schemas.push(appSchema({ title, description, url, locale }));
+  if (isCalculator) schemas.push(appSchema({ title, description, url, locale, reviewed }));
+  if (GUIDE_PAGES.includes(page)) {
+    schemas.push(articleSchema({ title, description, url, locale, reviewed }));
+  }
   if (page === 'home') schemas.push(organizationSchema());
   if (howTo) schemas.push(howToSchema(howTo, url));
   if (faq?.length) schemas.push(faqSchema(faq));

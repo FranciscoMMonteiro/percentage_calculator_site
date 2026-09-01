@@ -36,8 +36,11 @@ export const LOCALE_LABELS = {
   it: 'Italiano'
 };
 
-/** Sibling projects, previously hardcoded in RelatedCalculators. */
+/**
+ * Sibling projects linked from the footer and the related strip. Only list a
+ * site that serves real content without JavaScript: a link from every page to
+ * a client-only shell reads, to a crawler, as a link to a blank page.
+ */
 export const RELATED_SITES = [
-  { href: 'https://www.matrixcalc.net/', labelKey: 'related_matrix' },
-  { href: 'https://www.calcworkdays.com/', labelKey: 'related_work_days' }
+  { href: 'https://www.matrixcalc.net/', labelKey: 'related_matrix' }
 ];
