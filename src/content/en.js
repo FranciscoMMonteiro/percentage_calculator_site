@@ -1482,7 +1482,7 @@ export default {
         id: 'other-tools',
         heading: 'Related tools',
         blocks: [
-          'The same approach is applied to two sibling calculators built by the same person: a matrix calculator at matrixcalc.net and a working-days calculator at calcworkdays.com. They share the design and the principle — the tool first, the explanation below it — but no data of any kind is shared between the sites.'
+          'The same approach is applied to a sibling calculator built by the same person: a matrix calculator at matrixcalc.net. It shares the design and the principle — the tool first, the explanation below it — but no data of any kind is shared between the two sites.'
         ]
       }
     ]

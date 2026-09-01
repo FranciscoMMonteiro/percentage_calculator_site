@@ -1483,7 +1483,7 @@ export default {
         id: 'outras-ferramentas',
         heading: 'Ferramentas relacionadas',
         blocks: [
-          'A mesma abordagem foi aplicada a duas calculadoras irmãs feitas pela mesma pessoa: uma calculadora de matrizes em matrixcalc.net e uma calculadora de dias úteis em calcworkdays.com. Elas compartilham o desenho e o princípio — a ferramenta primeiro, a explicação abaixo — mas nenhum dado de qualquer tipo é compartilhado entre os sites.'
+          'A mesma abordagem foi aplicada a uma calculadora irmã feita pela mesma pessoa: uma calculadora de matrizes em matrixcalc.net. Ela compartilha o desenho e o princípio — a ferramenta primeiro, a explicação abaixo — mas nenhum dado de qualquer tipo é compartilhado entre os dois sites.'
         ]
       }
     ]
